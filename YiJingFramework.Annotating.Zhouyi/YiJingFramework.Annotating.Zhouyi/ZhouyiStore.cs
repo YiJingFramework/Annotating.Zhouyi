@@ -32,21 +32,21 @@ namespace YiJingFramework.Annotating.Zhouyi
         /// </param>
         public ZhouyiStore(AnnotationStore? store)
         {
-            this.Groups = new ZhouyiGroups(this);
-            this.Store = store ?? new AnnotationStore();
+            Groups = new ZhouyiGroups(this);
+            Store = store ?? new AnnotationStore();
         }
 
         /// <summary>
         /// 仓库标题。
         /// Title of the store.
         /// </summary>
-        public string? Title 
-        { 
+        public string? Title
+        {
             get => Store.Title;
-            set 
+            set
             {
                 Store.Title = value;
-            } 
+            }
         }
 
         /// <summary>

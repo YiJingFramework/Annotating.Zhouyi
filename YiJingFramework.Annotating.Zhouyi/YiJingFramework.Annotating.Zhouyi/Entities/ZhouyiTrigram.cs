@@ -71,7 +71,7 @@ namespace YiJingFramework.Annotating.Zhouyi.Entities
         /// </returns>
         public Painting JoinAsUpper(ZhouyiTrigram lower)
         {
-            var upperPainting = this.Painting;
+            var upperPainting = Painting;
             var lowerPainting = lower.Painting;
             return new Painting(
                 lowerPainting[0], lowerPainting[1], lowerPainting[2],
@@ -93,7 +93,7 @@ namespace YiJingFramework.Annotating.Zhouyi.Entities
         public Painting JoinAsLower(ZhouyiTrigram upper)
         {
             var upperPainting = upper.Painting;
-            var lowerPainting = this.Painting;
+            var lowerPainting = Painting;
             return new Painting(
                 lowerPainting[0], lowerPainting[1], lowerPainting[2],
                 upperPainting[0], upperPainting[1], upperPainting[2]);

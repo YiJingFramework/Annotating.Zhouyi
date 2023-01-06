@@ -167,7 +167,7 @@ namespace YiJingFramework.Annotating.Zhouyi.Entities
         /// </returns>
         public (Painting upper, Painting lower) SplitToTrigrams()
         {
-            var painting = this.Painting;
+            var painting = Painting;
             return (
                 upper: new Painting(painting[3], painting[4], painting[5]),
                 lower: new Painting(painting[0], painting[1], painting[2])

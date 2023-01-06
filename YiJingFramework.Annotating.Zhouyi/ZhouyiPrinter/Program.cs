@@ -6,7 +6,7 @@ var s = File.ReadAllText("store.json");
 var store = ZhouyiStore.DeserializeFromJsonString(s);
 Debug.Assert(store is not null);
 
-for(int i = 0; i < 64; i++)
+for (int i = 0; i < 64; i++)
 {
     var paintingString = Convert.ToString(i, 2).PadLeft(6, '0');
     var painting = Painting.Parse(paintingString);

@@ -21,7 +21,7 @@ namespace YiJingFramework.Annotating.Zhouyi
         {
             if (field is not null)
                 return field;
-            var annotationStore = this.store.Store;
+            var annotationStore = store.Store;
             foreach (var g in annotationStore.PaintingGroups)
             {
                 if (g.Title == title)
@@ -39,7 +39,7 @@ namespace YiJingFramework.Annotating.Zhouyi
         {
             if (field is not null)
                 return field;
-            var annotationStore = this.store.Store;
+            var annotationStore = store.Store;
             foreach (var g in annotationStore.PaintingLinesGroups)
             {
                 if (g.Title == title)
@@ -57,7 +57,7 @@ namespace YiJingFramework.Annotating.Zhouyi
         {
             if (field is not null)
                 return field;
-            var annotationStore = this.store.Store;
+            var annotationStore = store.Store;
             foreach (var g in annotationStore.NoTargetGroups)
             {
                 if (g.Title == title)

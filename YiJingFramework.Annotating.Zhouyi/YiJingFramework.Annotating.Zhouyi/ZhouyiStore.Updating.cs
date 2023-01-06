@@ -191,7 +191,7 @@ namespace YiJingFramework.Annotating.Zhouyi
                     break;
                 case 1:
                     entries[0].Content = partA;
-                    if(partB is not null)
+                    if (partB is not null)
                         _ = group.AddEntry(default, xici.PartB);
                     break;
                 default:

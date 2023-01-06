@@ -57,7 +57,7 @@ store.UpdateStore(kun);
 var lines = new Queue<string>(File.ReadAllLines("./hexagramsCommon.txt"));
 lines.Dequeue();
 
-for (;lines.Count > 0; )
+for (; lines.Count > 0;)
 {
     ZhouyiHexagram hexagram;
     {
@@ -79,8 +79,9 @@ for (;lines.Count > 0; )
         {
             upper = store.GetTrigramByName(s[1][4].ToString())!;
             lower = store.GetTrigramByName(s[1][6].ToString())!;
-            hexagram = new ZhouyiHexagram(new Painting(lower.Painting.Concat(upper.Painting)));
-            hexagram.Name = s[1][0].ToString();
+            hexagram = new ZhouyiHexagram(new Painting(lower.Painting.Concat(upper.Painting))) {
+                Name = s[1][0].ToString()
+            };
         }
         else
         {
@@ -88,8 +89,9 @@ for (;lines.Count > 0; )
                 throw new Exception();
             upper = store.GetTrigramByName(s[1][6].ToString())!;
             lower = store.GetTrigramByName(s[1][8].ToString())!;
-            hexagram = new ZhouyiHexagram(new Painting(lower.Painting.Concat(upper.Painting)));
-            hexagram.Name = s[1][0..2];
+            hexagram = new ZhouyiHexagram(new Painting(lower.Painting.Concat(upper.Painting))) {
+                Name = s[1][0..2]
+            };
         }
         hexagram.Index = s[0][(s[0].LastIndexOf('第') + 1)..];
         if (upper.Painting == lower.Painting)
@@ -131,14 +133,14 @@ for (;lines.Count > 0; )
         var line = lines.Dequeue();
         if (!line.StartsWith("《彖》曰："))
             throw new Exception();
-        hexagram.Tuan = line.Substring("《彖》曰：".Length);
+        hexagram.Tuan = line["《彖》曰：".Length..];
     }
     {
         // 《象》曰：天行健，君子以自強不息。
         var line = lines.Dequeue();
         if (!line.StartsWith("《象》曰："))
             throw new Exception();
-        hexagram.Xiang = line.Substring("《象》曰：".Length);
+        hexagram.Xiang = line["《象》曰：".Length..];
     }
     {
         // 初九：潛龍勿用。
@@ -146,7 +148,7 @@ for (;lines.Count > 0; )
         var starting = "初" + (hexagram.Painting[0].IsYang ? "九" : "六") + "：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FirstLine.LineText = line.Substring(starting.Length);
+        hexagram.FirstLine.LineText = line[starting.Length..];
     }
     {
         // 《象》曰：潛龍勿用，陽在下也。
@@ -154,77 +156,77 @@ for (;lines.Count > 0; )
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FirstLine.Xiang = line.Substring(starting.Length);
+        hexagram.FirstLine.Xiang = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = (hexagram.Painting[1].IsYang ? "九" : "六") + "二：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.SecondLine.LineText = line.Substring(starting.Length);
+        hexagram.SecondLine.LineText = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.SecondLine.Xiang = line.Substring(starting.Length);
+        hexagram.SecondLine.Xiang = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = (hexagram.Painting[2].IsYang ? "九" : "六") + "三：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.ThirdLine.LineText = line.Substring(starting.Length);
+        hexagram.ThirdLine.LineText = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.ThirdLine.Xiang = line.Substring(starting.Length);
+        hexagram.ThirdLine.Xiang = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = (hexagram.Painting[3].IsYang ? "九" : "六") + "四：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FourthLine.LineText = line.Substring(starting.Length);
+        hexagram.FourthLine.LineText = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FourthLine.Xiang = line.Substring(starting.Length);
+        hexagram.FourthLine.Xiang = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = (hexagram.Painting[4].IsYang ? "九" : "六") + "五：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FifthLine.LineText = line.Substring(starting.Length);
+        hexagram.FifthLine.LineText = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FifthLine.Xiang = line.Substring(starting.Length);
+        hexagram.FifthLine.Xiang = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "上" + (hexagram.Painting[5].IsYang ? "九" : "六") + "：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.SixthLine.LineText = line.Substring(starting.Length);
+        hexagram.SixthLine.LineText = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.SixthLine.Xiang = line.Substring(starting.Length);
+        hexagram.SixthLine.Xiang = line[starting.Length..];
     }
     store.UpdateStore(hexagram);
 }

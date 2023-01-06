@@ -17,7 +17,7 @@ namespace YiJingFramework.Annotating.Zhouyi
             return null;
         }
         private static AnnotationEntry<Painting>? FindEntry(
-            AnnotationGroup<Painting> group, 
+            AnnotationGroup<Painting> group,
             string? content,
             StringComparison comparisonType)
         {
@@ -119,7 +119,7 @@ namespace YiJingFramework.Annotating.Zhouyi
         /// The result.
         /// </returns>
         public ZhouyiTrigram? GetTrigramByName(
-            string? name, 
+            string? name,
             StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
         {
             var entry = FindEntry(Groups.TrigramNameGroup, name, comparisonType);
