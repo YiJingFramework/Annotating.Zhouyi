@@ -3,12 +3,17 @@ using YiJingFramework.Core;
 
 namespace YiJingFramework.Annotating.Zhouyi
 {
-    public sealed class ZhouyiStoreGroups
+    /// <summary>
+    /// <seealso cref="ZhouyiStore"/> 的注解组。
+    /// Annotation groups of <seealso cref="ZhouyiStore"/>s.
+    /// </summary>
+    public sealed class ZhouyiGroups
     {
-        internal ZhouyiStoreGroups(ZhouyiStore store)
+        internal ZhouyiGroups(ZhouyiStore store)
         {
             this.store = store;
         }
+
         private readonly ZhouyiStore store;
 
         private AnnotationGroup<Painting> DoGroupPropertyWork(
@@ -66,92 +71,210 @@ namespace YiJingFramework.Annotating.Zhouyi
         }
 
         #region trigram
-        private const string TITLE_TRIGRAM_NAME = "Trigram Name";
-        private const string TITLE_TRIGRAM_NATURE = "Trigram Nature";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_TRIGRAM_NAME = "Trigram Name";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_TRIGRAM_NATURE = "Trigram Nature";
 
         private AnnotationGroup<Painting>? trigramNameGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<Painting> TrigramNameGroup
             => DoGroupPropertyWork(ref trigramNameGroup, TITLE_TRIGRAM_NAME);
 
         private AnnotationGroup<Painting>? trigramNatureGroup;
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<Painting> TrigramNatureGroup
             => DoGroupPropertyWork(ref trigramNatureGroup, TITLE_TRIGRAM_NATURE);
         #endregion trigram
 
         #region hexagram
-        private const string TITLE_HEXAGRAM_NAME = "Hexagram Name";
-        private const string TITLE_HEXAGRAM_INDEX = "Hexagram Index";
-        private const string TITLE_HEXAGRAM_TEXT = "Hexagram Text";
-        private const string TITLE_HEXAGRAM_YONG_TEXT = "Hexagram Yong Text";
-        private const string TITLE_LINE_TEXT = "Line Text";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_HEXAGRAM_NAME = "Hexagram Name";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_HEXAGRAM_INDEX = "Hexagram Index";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_HEXAGRAM_TEXT = "Hexagram Text";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_HEXAGRAM_YONG_TEXT = "Hexagram Yong Text";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_LINE_TEXT = "Line Text";
 
-        private const string TITLE_XIANG_HEXAGRAM = "Xiang (Hexagram)";
-        private const string TITLE_XIANG_LINE = "Xiang (Line)";
-        private const string TITLE_XIANG_YONG = "Xiang (Yong)";
-        private const string TITLE_TUAN = "Tuan";
-        private const string TITLE_WENYAN = "Wenyan";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_XIANG_HEXAGRAM = "Xiang (Hexagram)";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_XIANG_LINE = "Xiang (Line)";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_XIANG_YONG = "Xiang (Yong)";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_TUAN = "Tuan";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_WENYAN = "Wenyan";
 
         private AnnotationGroup<Painting>? hexagramNameGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<Painting> HexagramNameGroup
             => DoGroupPropertyWork(ref hexagramNameGroup, TITLE_HEXAGRAM_NAME);
 
         private AnnotationGroup<Painting>? hexagramIndexGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<Painting> HexagramIndexGroup
             => DoGroupPropertyWork(ref hexagramIndexGroup, TITLE_HEXAGRAM_INDEX);
 
         private AnnotationGroup<Painting>? hexagramTextGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<Painting> HexagramTextGroup
             => DoGroupPropertyWork(ref hexagramTextGroup, TITLE_HEXAGRAM_TEXT);
 
         private AnnotationGroup<Painting>? hexagramYongTextGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<Painting> HexagramYongTextGroup
             => DoGroupPropertyWork(ref hexagramYongTextGroup, TITLE_HEXAGRAM_YONG_TEXT);
 
         private AnnotationGroup<PaintingLines>? lineTextGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<PaintingLines> LineTextGroup
             => DoGroupPropertyWork(ref lineTextGroup, TITLE_LINE_TEXT);
 
         private AnnotationGroup<Painting>? xiangHexagramGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<Painting> XiangHexagramGroup
             => DoGroupPropertyWork(ref xiangHexagramGroup, TITLE_XIANG_HEXAGRAM);
 
         private AnnotationGroup<Painting>? tuanGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<Painting> TuanGroup
             => DoGroupPropertyWork(ref tuanGroup, TITLE_TUAN);
 
         private AnnotationGroup<Painting>? wenyanGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<Painting> WenyanGroup
             => DoGroupPropertyWork(ref wenyanGroup, TITLE_WENYAN);
 
         private AnnotationGroup<PaintingLines>? xiangLineGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<PaintingLines> XiangLineGroup
             => DoGroupPropertyWork(ref xiangLineGroup, TITLE_XIANG_LINE);
 
         private AnnotationGroup<Painting>? xiangYongGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<Painting> XiangYongGroup
             => DoGroupPropertyWork(ref xiangYongGroup, TITLE_XIANG_YONG);
 
         #endregion hexagram
 
         #region others
-        private const string TITLE_XICI = "Xici";
-        private const string TITLE_SHUOGUA = "Shuogua";
-        private const string TITLE_XUGUA = "Xugua";
-        private const string TITLE_ZAGUA = "Zagua";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_XICI = "Xici";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_SHUOGUA = "Shuogua";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_XUGUA = "Xugua";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TITLE_ZAGUA = "Zagua";
 
         private AnnotationGroup<NoTarget>? xiciGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<NoTarget> XiciGroup
             => DoGroupPropertyWork(ref xiciGroup, TITLE_XICI);
 
         private AnnotationGroup<NoTarget>? shuoguaGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<NoTarget> ShuoguaGroup
             => DoGroupPropertyWork(ref shuoguaGroup, TITLE_SHUOGUA);
 
         private AnnotationGroup<NoTarget>? xuguaGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<NoTarget> XuguaGroup
             => DoGroupPropertyWork(ref xuguaGroup, TITLE_XUGUA);
 
         private AnnotationGroup<NoTarget>? zaguaGroup;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AnnotationGroup<NoTarget> ZaguaGroup
             => DoGroupPropertyWork(ref zaguaGroup, TITLE_ZAGUA);
         #endregion

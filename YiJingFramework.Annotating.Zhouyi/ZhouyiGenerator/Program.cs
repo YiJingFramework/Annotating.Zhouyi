@@ -4,7 +4,7 @@ using YiJingFramework.Annotating.Zhouyi;
 using YiJingFramework.Annotating.Zhouyi.Entities;
 using YiJingFramework.Core;
 
-ZhouyiStore store = new ZhouyiStore() {
+ZhouyiStore store = new ZhouyiStore(null) {
     Title = "Zhouyi"
 };
 store.Tags.Add("origin: https://github.com/bollwarm/ZHOUYI.git");

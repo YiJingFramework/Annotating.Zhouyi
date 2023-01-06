@@ -1,11 +1,7 @@
-﻿using System.Diagnostics;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-using YiJingFramework.Annotating.Entities;
+﻿using YiJingFramework.Annotating.Entities;
 using YiJingFramework.Annotating.Zhouyi.Entities;
 using YiJingFramework.Annotating.Zhouyi.Extensions;
 using YiJingFramework.Core;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace YiJingFramework.Annotating.Zhouyi
 {
@@ -59,8 +55,36 @@ namespace YiJingFramework.Annotating.Zhouyi
             return result;
         }
 
+        /// <summary>
+        /// 通过卦画获取三爻卦。
+        /// Get a trigram with its painting.
+        /// 获取有性能损耗，应当多复用得到的结果。
+        /// The result should be reused; otherwise might cause performance loss.
+        /// 得到的卦和本实例没有绑定关系。
+        /// 如要修改此仓库的内容，需再调用 <seealso cref="UpdateStore(ZhouyiTrigram)"/> 。
+        /// The result is not bound to this instance.
+        /// Use <seealso cref="UpdateStore(ZhouyiTrigram)"/> if you want to edit the store.
+        /// </summary>
+        /// <param name="painting">
+        /// 卦画。
+        /// The painting.
+        /// </param>
+        /// <returns>
+        /// 结果。
+        /// The result.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="painting"/> 是 <c>null</c> 。
+        /// <paramref name="painting"/> is <c>null</c>.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="painting"/> 不表示一个三爻卦。
+        /// <paramref name="painting"/> does not represent a trigram.
+        /// </exception>
         public ZhouyiTrigram GetTrigram(Painting painting)
         {
+            ArgumentNullException.ThrowIfNull(painting);
+
             if (painting.Count is not 3)
                 throw new ArgumentException(
                     $"The painting {painting} does not represent a trigram.",
@@ -72,6 +96,28 @@ namespace YiJingFramework.Annotating.Zhouyi
             };
         }
 
+        /// <summary>
+        /// 通过卦名获取三爻卦。
+        /// Get a trigram with its name.
+        /// 获取有性能损耗，应当多复用得到的结果。
+        /// The result should be reused; otherwise might cause performance loss.
+        /// 得到的卦和本实例没有绑定关系。
+        /// 如要修改此仓库的内容，需再调用 <seealso cref="UpdateStore(ZhouyiTrigram)"/> 。
+        /// The result is not bound to this instance.
+        /// Use <seealso cref="UpdateStore(ZhouyiTrigram)"/> if you want to edit the store.
+        /// </summary>
+        /// <param name="name">
+        /// 卦名。
+        /// The name.
+        /// </param>
+        /// <param name="comparisonType">
+        /// 字符串比较方式。
+        /// String comparison type.
+        /// </param>
+        /// <returns>
+        /// 结果。
+        /// The result.
+        /// </returns>
         public ZhouyiTrigram? GetTrigramByName(
             string? name, 
             StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
@@ -86,6 +132,28 @@ namespace YiJingFramework.Annotating.Zhouyi
             };
         }
 
+        /// <summary>
+        /// 通过对应的自然事物获取三爻卦。
+        /// Get a trigram with its corresponding nature.
+        /// 获取有性能损耗，应当多复用得到的结果。
+        /// The result should be reused; otherwise might cause performance loss.
+        /// 得到的卦和本实例没有绑定关系。
+        /// 如要修改此仓库的内容，需再调用 <seealso cref="UpdateStore(ZhouyiTrigram)"/> 。
+        /// The result is not bound to this instance.
+        /// Use <seealso cref="UpdateStore(ZhouyiTrigram)"/> if you want to edit the store.
+        /// </summary>
+        /// <param name="nature">
+        /// 自然事物。
+        /// The nature.
+        /// </param>
+        /// <param name="comparisonType">
+        /// 字符串比较方式。
+        /// String comparison type.
+        /// </param>
+        /// <returns>
+        /// 结果。
+        /// The result.
+        /// </returns>
         public ZhouyiTrigram? GetTrigramByNature(
             string? nature,
             StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
@@ -141,8 +209,36 @@ namespace YiJingFramework.Annotating.Zhouyi
             line.Xiang = FindContent(Groups.XiangYongGroup, painting);
         }
 
+        /// <summary>
+        /// 通过卦画获取六爻卦。
+        /// Get a hexagram with its painting.
+        /// 获取有性能损耗，应当多复用得到的结果。
+        /// The result should be reused; otherwise might cause performance loss.
+        /// 得到的卦和本实例没有绑定关系。
+        /// 如要修改此仓库的内容，需再调用 <seealso cref="UpdateStore(ZhouyiHexagram)"/> 。
+        /// The result is not bound to this instance.
+        /// Use <seealso cref="UpdateStore(ZhouyiHexagram)"/> if you want to edit the store.
+        /// </summary>
+        /// <param name="painting">
+        /// 卦画。
+        /// The painting.
+        /// </param>
+        /// <returns>
+        /// 结果。
+        /// The result.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="painting"/> 是 <c>null</c> 。
+        /// <paramref name="painting"/> is <c>null</c>.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="painting"/> 不表示一个六爻卦。
+        /// <paramref name="painting"/> does not represent a hexagram.
+        /// </exception>
         public ZhouyiHexagram GetHexagram(Painting painting)
         {
+            ArgumentNullException.ThrowIfNull(painting);
+
             if (painting.Count is not 6)
                 throw new ArgumentException(
                     $"The painting {painting} does not represent a hexagram.",
@@ -155,6 +251,28 @@ namespace YiJingFramework.Annotating.Zhouyi
             return result;
         }
 
+        /// <summary>
+        /// 通过卦名获取六爻卦。
+        /// Get a hexagram with its name.
+        /// 获取有性能损耗，应当多复用得到的结果。
+        /// The result should be reused; otherwise might cause performance loss.
+        /// 得到的卦和本实例没有绑定关系。
+        /// 如要修改此仓库的内容，需再调用 <seealso cref="UpdateStore(ZhouyiHexagram)"/> 。
+        /// The result is not bound to this instance.
+        /// Use <seealso cref="UpdateStore(ZhouyiHexagram)"/> if you want to edit the store.
+        /// </summary>
+        /// <param name="name">
+        /// 卦名。
+        /// The name.
+        /// </param>
+        /// <param name="comparisonType">
+        /// 字符串比较方式。
+        /// String comparison type.
+        /// </param>
+        /// <returns>
+        /// 结果。
+        /// The result.
+        /// </returns>
         public ZhouyiHexagram? GetHexagramByName(
             string? name,
             StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
@@ -171,6 +289,28 @@ namespace YiJingFramework.Annotating.Zhouyi
             return result;
         }
 
+        /// <summary>
+        /// 通过卦序获取六爻卦。
+        /// Get a hexagram with its index.
+        /// 获取有性能损耗，应当多复用得到的结果。
+        /// The result should be reused; otherwise might cause performance loss.
+        /// 得到的卦和本实例没有绑定关系。
+        /// 如要修改此仓库的内容，需再调用 <seealso cref="UpdateStore(ZhouyiHexagram)"/> 。
+        /// The result is not bound to this instance.
+        /// Use <seealso cref="UpdateStore(ZhouyiHexagram)"/> if you want to edit the store.
+        /// </summary>
+        /// <param name="index">
+        /// 卦序。
+        /// The index.
+        /// </param>
+        /// <param name="comparisonType">
+        /// 字符串比较方式。
+        /// String comparison type.
+        /// </param>
+        /// <returns>
+        /// 结果。
+        /// The result.
+        /// </returns>
         public ZhouyiHexagram? GetHexagramByIndex(
             string? index,
             StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)

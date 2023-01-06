@@ -67,15 +67,46 @@ namespace YiJingFramework.Annotating.Zhouyi
                 entries[0].Content = content;
         }
 
+        /// <summary>
+        /// 更新仓库。
+        /// Update the store.
+        /// 此操作不是线程安全的。
+        /// The operation is not thread safe.
+        /// </summary>
+        /// <param name="trigram">
+        /// 要更新的内容。
+        /// Things to update.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="trigram"/> 是 <c>null</c> 。
+        /// <paramref name="trigram"/> is <c>null</c>.
+        /// </exception>
         public void UpdateStore(ZhouyiTrigram trigram)
         {
+            ArgumentNullException.ThrowIfNull(trigram);
             var painting = trigram.Painting;
             UpdateEntry(Groups.TrigramNameGroup, painting, trigram.Name);
             UpdateEntry(Groups.TrigramNatureGroup, painting, trigram.Nature);
         }
 
+        /// <summary>
+        /// 更新仓库。
+        /// Update the store.
+        /// 此操作不是线程安全的。
+        /// The operation is not thread safe.
+        /// </summary>
+        /// <param name="hexagram">
+        /// 要更新的内容。
+        /// Things to update.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="hexagram"/> 是 <c>null</c> 。
+        /// <paramref name="hexagram"/> is <c>null</c>.
+        /// </exception>
         public void UpdateStore(ZhouyiHexagram hexagram)
         {
+            ArgumentNullException.ThrowIfNull(hexagram);
+
             var painting = hexagram.Painting;
             UpdateEntry(Groups.HexagramIndexGroup, painting, hexagram.Index);
             UpdateEntry(Groups.HexagramNameGroup, painting, hexagram.Name);
@@ -107,13 +138,44 @@ namespace YiJingFramework.Annotating.Zhouyi
             UpdateEntry(Groups.XiangYongGroup, painting, hexagram.Yong.Xiang);
         }
 
+        /// <summary>
+        /// 更新仓库。
+        /// Update the store.
+        /// 此操作不是线程安全的。
+        /// The operation is not thread safe.
+        /// </summary>
+        /// <param name="shuogua">
+        /// 要更新的内容。
+        /// Things to update.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="shuogua"/> 是 <c>null</c> 。
+        /// <paramref name="shuogua"/> is <c>null</c>.
+        /// </exception>
         public void UpdateStore(Shuogua shuogua)
         {
+            ArgumentNullException.ThrowIfNull(shuogua);
             UpdateFirstContent(Groups.ShuoguaGroup, shuogua.Content);
         }
 
+        /// <summary>
+        /// 更新仓库。
+        /// Update the store.
+        /// 此操作不是线程安全的。
+        /// The operation is not thread safe.
+        /// </summary>
+        /// <param name="xici">
+        /// 要更新的内容。
+        /// Things to update.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="xici"/> 是 <c>null</c> 。
+        /// <paramref name="xici"/> is <c>null</c>.
+        /// </exception>
         public void UpdateStore(Xici xici)
         {
+            ArgumentNullException.ThrowIfNull(xici);
+
             var group = Groups.XiciGroup;
             var entries = group.Entries;
             var partA = xici.PartA;
@@ -139,13 +201,43 @@ namespace YiJingFramework.Annotating.Zhouyi
             }
         }
 
+        /// <summary>
+        /// 更新仓库。
+        /// Update the store.
+        /// 此操作不是线程安全的。
+        /// The operation is not thread safe.
+        /// </summary>
+        /// <param name="xugua">
+        /// 要更新的内容。
+        /// Things to update.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="xugua"/> 是 <c>null</c> 。
+        /// <paramref name="xugua"/> is <c>null</c>.
+        /// </exception>
         public void UpdateStore(Xugua xugua)
         {
+            ArgumentNullException.ThrowIfNull(xugua);
             UpdateFirstContent(Groups.XuguaGroup, xugua.Content);
         }
 
+        /// <summary>
+        /// 更新仓库。
+        /// Update the store.
+        /// 此操作不是线程安全的。
+        /// The operation is not thread safe.
+        /// </summary>
+        /// <param name="zagua">
+        /// 要更新的内容。
+        /// Things to update.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="zagua"/> 是 <c>null</c> 。
+        /// <paramref name="zagua"/> is <c>null</c>.
+        /// </exception>
         public void UpdateStore(Zagua zagua)
         {
+            ArgumentNullException.ThrowIfNull(zagua);
             UpdateFirstContent(Groups.ZaguaGroup, zagua.Content);
         }
     }
