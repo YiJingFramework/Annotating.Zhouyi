@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YiJingFramework.Annotating.Zhouyi", "YiJingFramework.Annotating.Zhouyi\YiJingFramework.Annotating.Zhouyi.csproj", "{FC43D5DD-3F35-47D7-8F9F-81F8064E31E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhouyiGenerator", "ZhouyiGenerator\ZhouyiGenerator.csproj", "{1FA67362-9D53-4680-8D89-EB025517270B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhouyiGenerator", "ZhouyiGenerator\ZhouyiGenerator.csproj", "{1FA67362-9D53-4680-8D89-EB025517270B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhouyiPrinter", "ZhouyiPrinter\ZhouyiPrinter.csproj", "{D887A10C-9B94-4210-8087-613D10EAC4A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1FA67362-9D53-4680-8D89-EB025517270B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FA67362-9D53-4680-8D89-EB025517270B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FA67362-9D53-4680-8D89-EB025517270B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D887A10C-9B94-4210-8087-613D10EAC4A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D887A10C-9B94-4210-8087-613D10EAC4A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D887A10C-9B94-4210-8087-613D10EAC4A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D887A10C-9B94-4210-8087-613D10EAC4A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

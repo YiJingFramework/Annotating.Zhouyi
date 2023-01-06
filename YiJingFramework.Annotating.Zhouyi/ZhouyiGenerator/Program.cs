@@ -7,6 +7,7 @@ using YiJingFramework.Core;
 ZhouyiStore store = new ZhouyiStore() {
     Title = "Zhouyi"
 };
+store.Tags.Add("origin: https://github.com/bollwarm/ZHOUYI.git");
 
 #region trigrams
 var qian = new ZhouyiTrigram(new Painting(YinYang.Yang, YinYang.Yang, YinYang.Yang)) {

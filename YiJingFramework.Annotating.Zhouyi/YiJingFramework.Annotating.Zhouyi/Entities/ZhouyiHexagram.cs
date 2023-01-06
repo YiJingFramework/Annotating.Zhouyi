@@ -39,5 +39,26 @@ namespace YiJingFramework.Annotating.Zhouyi.Entities
         public ZhouyiHexagramLine FifthLine { get; }
         public ZhouyiHexagramLine SixthLine { get; }
         public ZhouyiHexagramLine Yong { get; }
+
+        public IEnumerable<ZhouyiHexagramLine> EnumerateLines(bool includeYong = true)
+        {
+            yield return FirstLine;
+            yield return SecondLine;
+            yield return ThirdLine;
+            yield return FourthLine;
+            yield return FifthLine;
+            yield return SixthLine;
+            if (includeYong)
+                yield return Yong;
+        }
+
+        public (Painting upper, Painting lower) SplitToTrigrams()
+        {
+            var painting = this.Painting;
+            return (
+                upper: new Painting(painting[3], painting[4], painting[5]),
+                lower: new Painting(painting[0], painting[1], painting[2])
+                );
+        }
     }
 }

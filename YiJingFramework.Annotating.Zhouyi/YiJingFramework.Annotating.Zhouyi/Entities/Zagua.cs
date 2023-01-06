@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YiJingFramework.Annotating.Zhouyi.Entities
 {
-    public sealed class Zagua
+    public sealed record Zagua
     {
         public string? Content { get; set; }
     }
