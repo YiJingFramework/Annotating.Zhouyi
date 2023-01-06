@@ -8,7 +8,6 @@ namespace YiJingFramework.Annotating.Zhouyi.Entities
 {
     public sealed class Shuogua
     {
-        internal Shuogua() { }
         public string? Content { get; set; }
     }
 }

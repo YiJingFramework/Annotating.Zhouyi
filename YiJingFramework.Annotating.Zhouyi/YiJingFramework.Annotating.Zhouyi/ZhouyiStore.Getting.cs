@@ -21,7 +21,7 @@ namespace YiJingFramework.Annotating.Zhouyi
 
         public Xici GetXici()
         {
-            var entries = XiciGroup.Entries;
+            var entries = Groups.XiciGroup.Entries;
             return entries.Count switch {
                 0 => new Xici(),
                 1 => new Xici() {
@@ -37,20 +37,20 @@ namespace YiJingFramework.Annotating.Zhouyi
         public Shuogua GetShuogua()
         {
             return new Shuogua() {
-                Content = GetFirstContent(ShuoguaGroup)
+                Content = GetFirstContent(Groups.ShuoguaGroup)
             };
         }
 
         public Xugua GetXugua()
         {
             return new Xugua() {
-                Content = GetFirstContent(XuguaGroup)
+                Content = GetFirstContent(Groups.XuguaGroup)
             };
         }
         public Zagua GetZagua()
         {
             return new Zagua() {
-                Content = GetFirstContent(ZaguaGroup)
+                Content = GetFirstContent(Groups.ZaguaGroup)
             };
         }
     }

@@ -19,7 +19,8 @@ namespace YiJingFramework.Annotating.Zhouyi
                     return;
                 }
             }
-            _ = group.AddEntry(target, content);
+            if (content is not null)
+                _ = group.AddEntry(target, content);
         }
 
         private static void UpdateSixContents(
@@ -41,8 +42,18 @@ namespace YiJingFramework.Annotating.Zhouyi
                     entry.Content = contents[lineIndex];
                     foundRecord[lineIndex] = true;
                     if (foundCount is 5)
-                        break;
+                        return;
                     foundCount++;
+                }
+            }
+
+            for (int i = 0; i < 6; i++)
+            {
+                if (!foundRecord[i])
+                {
+                    var content = contents[i];
+                    if (content is not null)
+                        _ = group.AddEntry(new PaintingLines(target, i), content);
                 }
             }
         }
@@ -50,7 +61,7 @@ namespace YiJingFramework.Annotating.Zhouyi
         private static void UpdateFirstContent(AnnotationGroup<NoTarget> group, string? content)
         {
             var entries = group.Entries;
-            if (entries.Count is 0)
+            if (entries.Count is 0 && content is not null)
                 _ = group.AddEntry(default, content);
             else
                 entries[0].Content = content;
@@ -59,46 +70,67 @@ namespace YiJingFramework.Annotating.Zhouyi
         public void UpdateStore(ZhouyiTrigram trigram)
         {
             var painting = trigram.Painting;
-            UpdateEntry(TrigramNameGroup, painting, trigram.Name);
-            UpdateEntry(TrigramNatureGroup, painting, trigram.Nature);
+            UpdateEntry(Groups.TrigramNameGroup, painting, trigram.Name);
+            UpdateEntry(Groups.TrigramNatureGroup, painting, trigram.Nature);
         }
 
         public void UpdateStore(ZhouyiHexagram hexagram)
         {
             var painting = hexagram.Painting;
-            UpdateEntry(HexagramIndexGroup, painting, hexagram.Index);
-            UpdateEntry(HexagramNameGroup, painting, hexagram.Name);
-            UpdateEntry(HexagramTextGroup, painting, hexagram.Text);
-            UpdateEntry(HexagramYongTextGroup, painting, hexagram.YongText);
+            UpdateEntry(Groups.HexagramIndexGroup, painting, hexagram.Index);
+            UpdateEntry(Groups.HexagramNameGroup, painting, hexagram.Name);
+            UpdateEntry(Groups.HexagramTextGroup, painting, hexagram.Text);
+
+            UpdateEntry(Groups.XiangHexagramGroup, painting, hexagram.Xiang);
+            UpdateEntry(Groups.TuanGroup, painting, hexagram.Tuan);
+            UpdateEntry(Groups.WenyanGroup, painting, hexagram.Wenyan);
 
             UpdateSixContents(
-                LineTextGroup, painting,
+                Groups.LineTextGroup, painting,
                 hexagram.FirstLine.LineText,
                 hexagram.SecondLine.LineText,
                 hexagram.ThirdLine.LineText,
                 hexagram.FourthLine.LineText,
                 hexagram.FifthLine.LineText,
                 hexagram.SixthLine.LineText);
+
+            UpdateSixContents(
+                Groups.XiangLineGroup, painting,
+                hexagram.FirstLine.Xiang,
+                hexagram.SecondLine.Xiang,
+                hexagram.ThirdLine.Xiang,
+                hexagram.FourthLine.Xiang,
+                hexagram.FifthLine.Xiang,
+                hexagram.SixthLine.Xiang);
+
+            UpdateEntry(Groups.HexagramYongTextGroup, painting, hexagram.Yong.LineText);
+            UpdateEntry(Groups.XiangYongGroup, painting, hexagram.Yong.Xiang);
         }
 
         public void UpdateStore(Shuogua shuogua)
         {
-            UpdateFirstContent(ShuoguaGroup, shuogua.Content);
+            UpdateFirstContent(Groups.ShuoguaGroup, shuogua.Content);
         }
 
         public void UpdateStore(Xici xici)
         {
-            var group = XiciGroup;
+            var group = Groups.XiciGroup;
             var entries = group.Entries;
+            var partA = xici.PartA;
+            var partB = xici.PartB;
             switch (entries.Count)
             {
                 case 0:
-                    _ = group.AddEntry(default, xici.PartA);
-                    _ = group.AddEntry(default, xici.PartB);
+                    if (partA is not null || partB is not null)
+                    {
+                        _ = group.AddEntry(default, partA);
+                        _ = group.AddEntry(default, partB);
+                    }
                     break;
                 case 1:
-                    entries[0].Content = xici.PartA;
-                    _ = group.AddEntry(default, xici.PartB);
+                    entries[0].Content = partA;
+                    if(partB is not null)
+                        _ = group.AddEntry(default, xici.PartB);
                     break;
                 default:
                     entries[0].Content = xici.PartA;
@@ -109,12 +141,12 @@ namespace YiJingFramework.Annotating.Zhouyi
 
         public void UpdateStore(Xugua xugua)
         {
-            UpdateFirstContent(XuguaGroup, xugua.Content);
+            UpdateFirstContent(Groups.XuguaGroup, xugua.Content);
         }
 
         public void UpdateStore(Zagua zagua)
         {
-            UpdateFirstContent(ZaguaGroup, zagua.Content);
+            UpdateFirstContent(Groups.ZaguaGroup, zagua.Content);
         }
     }
 }

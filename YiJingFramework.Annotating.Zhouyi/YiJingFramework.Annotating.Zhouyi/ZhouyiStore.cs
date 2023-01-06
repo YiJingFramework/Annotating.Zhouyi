@@ -7,8 +7,10 @@ namespace YiJingFramework.Annotating.Zhouyi
     public sealed partial class ZhouyiStore
     {
         public AnnotationStore Store { get; }
+        public ZhouyiStoreGroups Groups { get; }
         public ZhouyiStore(AnnotationStore? store = null)
         {
+            this.Groups = new ZhouyiStoreGroups(this);
             this.Store = store ?? new AnnotationStore();
         }
         public string? Title 
