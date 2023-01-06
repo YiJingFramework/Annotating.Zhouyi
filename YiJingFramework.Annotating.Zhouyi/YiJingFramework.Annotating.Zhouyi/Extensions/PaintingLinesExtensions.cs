@@ -9,39 +9,26 @@ using YiJingFramework.Annotating.Entities;
 
 namespace YiJingFramework.Annotating.Zhouyi.Extensions
 {
-    internal static class PaintingLinesExtensions
+    public static class PaintingLinesExtensions
     {
         public static bool IsSingleLine(
-            this PaintingLines paintingLinesOfHexagramsOrTrigrams, 
+            this PaintingLines paintingLines,
             out int lineIndex)
         {
-            bool TryLog2(int x, out int result)
+            var lines = paintingLines.Lines;
+
+            lineIndex = -1;
+            for (int i = 0; i < lines.Count; i++)
             {
-                Debug.Assert(x > 0);
-
-                result = 0;
-
-                if ((x & (x - 1)) is not 0)
-                    return false;
-
-                for (; ; )
+                if (lines[i].IsYang)
                 {
-                    x >>= 1;
-                    if (x > 0)
-                    {
-                        result++;
-                        continue;
-                    }
-                    return true;
+                    if (lineIndex is not -1)
+                        return false;
+
+                    lineIndex = i;
                 }
             }
-
-            Debug.Assert(paintingLinesOfHexagramsOrTrigrams.Lines.Count <= 7);
-
-            var linesByte = paintingLinesOfHexagramsOrTrigrams.Lines.ToBytes()[0] - 
-                (1 << paintingLinesOfHexagramsOrTrigrams.Lines.Count);
-
-            return TryLog2(linesByte, out lineIndex);
+            return lineIndex is not -1;
         }
     }
 }

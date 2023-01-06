@@ -1,6 +1,6 @@
 ﻿using YiJingFramework.Core;
 
-namespace YiJingFramework.Annotating.Zhouyi
+namespace YiJingFramework.Annotating.Zhouyi.Entities
 {
     public sealed class ZhouyiHexagramLine
     {
@@ -8,10 +8,11 @@ namespace YiJingFramework.Annotating.Zhouyi
         public int LineIndex { get; }
         internal ZhouyiHexagramLine(ZhouyiHexagram hexagram, int lineIndex)
         {
-            this.Hexagram = hexagram;
-            this.LineIndex = lineIndex;
+            Hexagram = hexagram;
+            LineIndex = lineIndex;
         }
 
         public string? LineText { get; set; }
+        public string? Xiang { get; set; }
     }
 }

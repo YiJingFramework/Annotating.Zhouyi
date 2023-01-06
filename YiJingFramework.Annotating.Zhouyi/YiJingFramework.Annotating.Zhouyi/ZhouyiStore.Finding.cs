@@ -1,8 +1,11 @@
 ﻿using System.Diagnostics;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using YiJingFramework.Annotating.Entities;
+using YiJingFramework.Annotating.Zhouyi.Entities;
 using YiJingFramework.Annotating.Zhouyi.Extensions;
 using YiJingFramework.Core;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace YiJingFramework.Annotating.Zhouyi
 {
@@ -14,6 +17,18 @@ namespace YiJingFramework.Annotating.Zhouyi
             {
                 if (e.Target == target)
                     return e.Content;
+            }
+            return null;
+        }
+        private static AnnotationEntry<Painting>? FindEntry(
+            AnnotationGroup<Painting> group, 
+            string? content,
+            StringComparison comparisonType)
+        {
+            foreach (var e in group.Entries)
+            {
+                if (string.Equals(e.Content, content, comparisonType))
+                    return e;
             }
             return null;
         }
@@ -44,7 +59,7 @@ namespace YiJingFramework.Annotating.Zhouyi
             return result;
         }
 
-        public ZhouyiTrigram GetTrigram(Painting painting)
+        public ZhouyiTrigram FindTrigram(Painting painting)
         {
             if (painting.Count is not 3)
                 throw new ArgumentException(
@@ -57,27 +72,115 @@ namespace YiJingFramework.Annotating.Zhouyi
             };
         }
 
-        public ZhouyiHexagram GetHexagram(Painting painting)
+        public ZhouyiTrigram? FindTrigramByName(
+            string? name, 
+            StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
+        {
+            var entry = FindEntry(TrigramNameGroup, name, comparisonType);
+            if (entry?.Target is null)
+                return null;
+            var painting = entry.Target;
+            return new ZhouyiTrigram(painting) {
+                Name = entry.Content,
+                Nature = FindContent(TrigramNatureGroup, painting)
+            };
+        }
+
+        public ZhouyiTrigram? FindTrigramByNature(
+            string? nature,
+            StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
+        {
+            var entry = FindEntry(TrigramNatureGroup, nature, comparisonType);
+            if (entry?.Target is null)
+                return null;
+            var painting = entry.Target;
+            return new ZhouyiTrigram(painting) {
+                Name = FindContent(TrigramNameGroup, painting),
+                Nature = entry.Content
+            };
+        }
+
+        private void FillNoFindingProperties(ZhouyiHexagram hexagram)
+        {
+            var painting = hexagram.Painting;
+            hexagram.Text = FindContent(HexagramTextGroup, painting);
+            hexagram.YongText = FindContent(HexagramYongTextGroup, painting);
+
+            hexagram.Xiang = FindContent(HexagramXiangGroup, painting);
+            hexagram.Tuan = FindContent(HexagramTuanGroup, painting);
+            hexagram.Wenyan = FindContent(HexagramWenyanGroup, painting);
+
+            var linesText = FindSixContents(LineTextGroup, painting);
+            var linesXiang = FindSixContents(LineXiangGroup, painting);
+            
+            var line = hexagram.FirstLine;
+            line.LineText = linesText[0];
+            line.Xiang = linesXiang[0];
+
+            line = hexagram.SecondLine;
+            line.LineText = linesText[1];
+            line.Xiang = linesXiang[1];
+
+            line = hexagram.ThirdLine;
+            line.LineText = linesText[2];
+            line.Xiang = linesXiang[2];
+
+            line = hexagram.FourthLine;
+            line.LineText = linesText[3];
+            line.Xiang = linesXiang[3];
+
+            line = hexagram.FifthLine;
+            line.LineText = linesText[4];
+            line.Xiang = linesXiang[4];
+
+            line = hexagram.SixthLine;
+            line.LineText = linesText[5];
+            line.Xiang = linesXiang[5];
+        }
+
+        public ZhouyiHexagram FindHexagram(Painting painting)
         {
             if (painting.Count is not 6)
                 throw new ArgumentException(
                     $"The painting {painting} does not represent a hexagram.",
                     nameof(painting));
             var result = new ZhouyiHexagram(painting) {
-                Index = FindContent(HexagramIndexGroup, painting),
                 Name = FindContent(HexagramNameGroup, painting),
-                Text = FindContent(HexagramTextGroup, painting),
-                ApplyNinthOrSixth = FindContent(ApplyNinthAndSixthGroup, painting)
+                Index = FindContent(HexagramIndexGroup, painting)
             };
+            FillNoFindingProperties(result);
+            return result;
+        }
 
-            var lines = FindSixContents(LineTextGroup, painting);
-            result.FirstLine.LineText = lines[0];
-            result.SecondLine.LineText = lines[1];
-            result.ThirdLine.LineText = lines[2];
-            result.FourthLine.LineText = lines[3];
-            result.FifthLine.LineText = lines[4];
-            result.SixthLine.LineText = lines[5];
+        public ZhouyiHexagram? FindHexagramByName(
+            string? name,
+            StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
+        {
+            var entry = FindEntry(HexagramNameGroup, name, comparisonType);
+            if (entry?.Target is null)
+                return null;
+            var painting = entry.Target;
+            var result = new ZhouyiHexagram(painting) {
+                Name = entry.Content,
+                Index = FindContent(HexagramIndexGroup, painting)
+            };
+            FillNoFindingProperties(result);
+            return result;
+        }
 
+        public ZhouyiHexagram? FindHexagramByIndex(
+            string? index,
+            StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
+        {
+            var entry = FindEntry(HexagramIndexGroup, index, comparisonType);
+            if (entry?.Target is null)
+                return null;
+            var painting = entry.Target;
+            var result = new ZhouyiHexagram(painting) {
+                Name = FindContent(HexagramNameGroup, painting),
+                Index = entry.Content
+            };
+            FillNoFindingProperties(result);
             return result;
         }
     }

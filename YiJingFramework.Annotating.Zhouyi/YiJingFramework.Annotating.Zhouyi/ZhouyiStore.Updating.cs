@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using YiJingFramework.Annotating.Entities;
+using YiJingFramework.Annotating.Zhouyi.Entities;
 using YiJingFramework.Annotating.Zhouyi.Extensions;
 using YiJingFramework.Core;
 
@@ -18,7 +19,7 @@ namespace YiJingFramework.Annotating.Zhouyi
                     return;
                 }
             }
-            group.AddEntry(target, content);
+            _ = group.AddEntry(target, content);
         }
 
         private static void UpdateSixContents(
@@ -46,13 +47,29 @@ namespace YiJingFramework.Annotating.Zhouyi
             }
         }
 
+        private static void UpdateFirstContent(AnnotationGroup<NoTarget> group, string? content)
+        {
+            var entries = group.Entries;
+            if (entries.Count is 0)
+                _ = group.AddEntry(default, content);
+            else
+                entries[0].Content = content;
+        }
+
+        public void UpdateStore(ZhouyiTrigram trigram)
+        {
+            var painting = trigram.Painting;
+            UpdateEntry(TrigramNameGroup, painting, trigram.Name);
+            UpdateEntry(TrigramNatureGroup, painting, trigram.Nature);
+        }
+
         public void UpdateStore(ZhouyiHexagram hexagram)
         {
             var painting = hexagram.Painting;
             UpdateEntry(HexagramIndexGroup, painting, hexagram.Index);
             UpdateEntry(HexagramNameGroup, painting, hexagram.Name);
             UpdateEntry(HexagramTextGroup, painting, hexagram.Text);
-            UpdateEntry(ApplyNinthAndSixthGroup, painting, hexagram.ApplyNinthOrSixth);
+            UpdateEntry(HexagramYongTextGroup, painting, hexagram.YongText);
 
             UpdateSixContents(
                 LineTextGroup, painting,
@@ -62,6 +79,42 @@ namespace YiJingFramework.Annotating.Zhouyi
                 hexagram.FourthLine.LineText,
                 hexagram.FifthLine.LineText,
                 hexagram.SixthLine.LineText);
+        }
+
+        public void UpdateStore(Shuogua shuogua)
+        {
+            UpdateFirstContent(ShuoguaGroup, shuogua.Content);
+        }
+
+        public void UpdateStore(Xici xici)
+        {
+            var group = XiciGroup;
+            var entries = group.Entries;
+            switch (entries.Count)
+            {
+                case 0:
+                    _ = group.AddEntry(default, xici.PartA);
+                    _ = group.AddEntry(default, xici.PartB);
+                    break;
+                case 1:
+                    entries[0].Content = xici.PartA;
+                    _ = group.AddEntry(default, xici.PartB);
+                    break;
+                default:
+                    entries[0].Content = xici.PartA;
+                    entries[1].Content = xici.PartB;
+                    break;
+            }
+        }
+
+        public void UpdateStore(Xugua xugua)
+        {
+            UpdateFirstContent(XuguaGroup, xugua.Content);
+        }
+
+        public void UpdateStore(Zagua zagua)
+        {
+            UpdateFirstContent(ZaguaGroup, zagua.Content);
         }
     }
 }
