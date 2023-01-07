@@ -58,15 +58,6 @@ namespace YiJingFramework.Annotating.Zhouyi
             }
         }
 
-        private static void UpdateFirstContent(AnnotationGroup<NoTarget> group, string? content)
-        {
-            var entries = group.Entries;
-            if (entries.Count is 0 && content is not null)
-                _ = group.AddEntry(default, content);
-            else
-                entries[0].Content = content;
-        }
-
         /// <summary>
         /// 更新仓库。
         /// Update the store.
@@ -138,6 +129,21 @@ namespace YiJingFramework.Annotating.Zhouyi
             UpdateEntry(Groups.XiangYongGroup, painting, hexagram.Yong.Xiang);
         }
 
+        private static void UpdateEntry(
+            AnnotationGroup<string> group, string target, string? content)
+        {
+            foreach (var e in group.Entries)
+            {
+                if (e.Target == target)
+                {
+                    e.Content = content;
+                    return;
+                }
+            }
+            if (content is not null)
+                _ = group.AddEntry(target, content);
+        }
+
         /// <summary>
         /// 更新仓库。
         /// Update the store.
@@ -155,7 +161,7 @@ namespace YiJingFramework.Annotating.Zhouyi
         public void UpdateStore(Shuogua shuogua)
         {
             ArgumentNullException.ThrowIfNull(shuogua);
-            UpdateFirstContent(Groups.ShuoguaGroup, shuogua.Content);
+            UpdateEntry(Groups.TheRestOfYizhuanGroup, ZhouyiGroups.TARGET_SHUOGUA, shuogua.Content);
         }
 
         /// <summary>
@@ -175,30 +181,8 @@ namespace YiJingFramework.Annotating.Zhouyi
         public void UpdateStore(Xici xici)
         {
             ArgumentNullException.ThrowIfNull(xici);
-
-            var group = Groups.XiciGroup;
-            var entries = group.Entries;
-            var partA = xici.PartA;
-            var partB = xici.PartB;
-            switch (entries.Count)
-            {
-                case 0:
-                    if (partA is not null || partB is not null)
-                    {
-                        _ = group.AddEntry(default, partA);
-                        _ = group.AddEntry(default, partB);
-                    }
-                    break;
-                case 1:
-                    entries[0].Content = partA;
-                    if (partB is not null)
-                        _ = group.AddEntry(default, xici.PartB);
-                    break;
-                default:
-                    entries[0].Content = xici.PartA;
-                    entries[1].Content = xici.PartB;
-                    break;
-            }
+            UpdateEntry(Groups.TheRestOfYizhuanGroup, ZhouyiGroups.TARGET_XICI_A, xici.PartA);
+            UpdateEntry(Groups.TheRestOfYizhuanGroup, ZhouyiGroups.TARGET_XICI_B, xici.PartB);
         }
 
         /// <summary>
@@ -218,7 +202,7 @@ namespace YiJingFramework.Annotating.Zhouyi
         public void UpdateStore(Xugua xugua)
         {
             ArgumentNullException.ThrowIfNull(xugua);
-            UpdateFirstContent(Groups.XuguaGroup, xugua.Content);
+            UpdateEntry(Groups.TheRestOfYizhuanGroup, ZhouyiGroups.TARGET_XUGUA, xugua.Content);
         }
 
         /// <summary>
@@ -238,7 +222,7 @@ namespace YiJingFramework.Annotating.Zhouyi
         public void UpdateStore(Zagua zagua)
         {
             ArgumentNullException.ThrowIfNull(zagua);
-            UpdateFirstContent(Groups.ZaguaGroup, zagua.Content);
+            UpdateEntry(Groups.TheRestOfYizhuanGroup, ZhouyiGroups.TARGET_ZAGUA, zagua.Content);
         }
     }
 }

@@ -52,13 +52,13 @@ namespace YiJingFramework.Annotating.Zhouyi
             return field;
         }
 
-        private AnnotationGroup<NoTarget> DoGroupPropertyWork(
-            ref AnnotationGroup<NoTarget>? field, string title)
+        private AnnotationGroup<string> DoGroupPropertyWork(
+            ref AnnotationGroup<string>? field, string title)
         {
             if (field is not null)
                 return field;
             var annotationStore = store.Store;
-            foreach (var g in annotationStore.NoTargetGroups)
+            foreach (var g in annotationStore.StringGroups)
             {
                 if (g.Title == title)
                 {
@@ -66,7 +66,7 @@ namespace YiJingFramework.Annotating.Zhouyi
                     return field;
                 }
             }
-            field = annotationStore.AddNoTargetGroup(title);
+            field = annotationStore.AddStringGroup(title);
             return field;
         }
 
@@ -225,58 +225,40 @@ namespace YiJingFramework.Annotating.Zhouyi
 
         #endregion hexagram
 
-        #region others
+        #region the rest of Yizhuan
         /// <summary>
         /// 
         /// </summary>
-        public const string TITLE_XICI = "Xici";
+        public const string TITLE_THE_REST_OF_YIZHUAN = "The rest (of Yizhuan)";
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public const string TITLE_SHUOGUA = "Shuogua";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public const string TITLE_XUGUA = "Xugua";
+        private AnnotationGroup<string>? theRestOfYizhuanGroup;
 
         /// <summary>
         /// 
         /// </summary>
-        public const string TITLE_ZAGUA = "Zagua";
-
-        private AnnotationGroup<NoTarget>? xiciGroup;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public AnnotationGroup<NoTarget> XiciGroup
-            => DoGroupPropertyWork(ref xiciGroup, TITLE_XICI);
-
-        private AnnotationGroup<NoTarget>? shuoguaGroup;
+        public AnnotationGroup<string> TheRestOfYizhuanGroup
+            => DoGroupPropertyWork(ref theRestOfYizhuanGroup, TITLE_THE_REST_OF_YIZHUAN);
 
         /// <summary>
         /// 
         /// </summary>
-        public AnnotationGroup<NoTarget> ShuoguaGroup
-            => DoGroupPropertyWork(ref shuoguaGroup, TITLE_SHUOGUA);
-
-        private AnnotationGroup<NoTarget>? xuguaGroup;
-
+        public const string TARGET_XICI_A = "Xici A";
         /// <summary>
         /// 
         /// </summary>
-        public AnnotationGroup<NoTarget> XuguaGroup
-            => DoGroupPropertyWork(ref xuguaGroup, TITLE_XUGUA);
-
-        private AnnotationGroup<NoTarget>? zaguaGroup;
-
+        public const string TARGET_XICI_B = "Xici B";
         /// <summary>
         /// 
         /// </summary>
-        public AnnotationGroup<NoTarget> ZaguaGroup
-            => DoGroupPropertyWork(ref zaguaGroup, TITLE_ZAGUA);
+        public const string TARGET_SHUOGUA = "Shuogua";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TARGET_XUGUA = "Xugua";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string TARGET_ZAGUA = "Zagua";
         #endregion
     }
 }

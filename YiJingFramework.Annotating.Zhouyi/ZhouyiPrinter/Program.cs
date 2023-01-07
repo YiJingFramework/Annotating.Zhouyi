@@ -3,7 +3,9 @@ using YiJingFramework.Annotating.Zhouyi;
 using YiJingFramework.Core;
 
 Console.WriteLine("Path of the store file ('./store.json' by default):");
-var path = Console.ReadLine() ?? "./store.json";
+var path = Console.ReadLine();
+if (string.IsNullOrEmpty(path))
+    path = "./store.json";
 
 var s = File.ReadAllText(path);
 var store = ZhouyiStore.DeserializeFromJsonString(s);
