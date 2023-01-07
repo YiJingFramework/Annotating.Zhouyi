@@ -20,4 +20,4 @@ var s = store.SerializeToJsonString();
 Console.WriteLine(s);
 Console.WriteLine();
 
-// Ouput: {"n":"Test Store","t":["It is a test!"],"gn":[],"gp":[{"t":"Hexagram Index","e":[]},{"t":"Hexagram Name","e":[{"t":"111111","c":"Qian"}]},{"t":"Hexagram Text","e":[{"t":"111111","c":"Text of Qian here"}]},{"t":"Xiang (Hexagram)","e":[]},{"t":"Tuan","e":[]},{"t":"Wenyan","e":[]},{"t":"Hexagram Yong Text","e":[]},{"t":"Xiang (Yong)","e":[]}],"gl":[{"t":"Line Text","e":[{"t":"111111100000","c":"Line 1 of Qian"}]},{"t":"Xiang (Line)","e":[]}]}
+// Ouput: {"n":"Test Store","t":["It is a test!"],"gs":[],"gp":[{"t":"Hexagram Index","e":[]},{"t":"Hexagram Name","e":[{"t":"111111","c":"Qian"}]},{"t":"Hexagram Text","e":[{"t":"111111","c":"Text of Qian here"}]},{"t":"Xiang (Hexagram)","e":[]},{"t":"Tuan","e":[]},{"t":"Wenyan","e":[]},{"t":"Hexagram Yong Text","e":[]},{"t":"Xiang (Yong)","e":[]}],"gl":[{"t":"Line Text","e":[{"t":"111111100000","c":"Line 1 of Qian"}]},{"t":"Xiang (Line)","e":[]}]}

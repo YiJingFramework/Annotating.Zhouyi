@@ -59,7 +59,6 @@ PrintQian(s);
  * The first line: Line 1 of Qian
  */
 
-
 var store = ZhouyiStore.DeserializeFromJsonString(s);
 Debug.Assert(store is not null);
 
