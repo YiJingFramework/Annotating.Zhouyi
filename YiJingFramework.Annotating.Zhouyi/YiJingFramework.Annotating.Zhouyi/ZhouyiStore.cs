@@ -1,4 +1,6 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using YiJingFramework.Annotating.Zhouyi.Serialization;
 
 namespace YiJingFramework.Annotating.Zhouyi
 {
@@ -6,6 +8,7 @@ namespace YiJingFramework.Annotating.Zhouyi
     /// 专用于周易的注解仓库。
     /// Specialized annotation store for Zhouyi.
     /// </summary>
+    [JsonConverter(typeof(ZhouyiStoreConverter))]
     public sealed partial class ZhouyiStore
     {
         /// <summary>
