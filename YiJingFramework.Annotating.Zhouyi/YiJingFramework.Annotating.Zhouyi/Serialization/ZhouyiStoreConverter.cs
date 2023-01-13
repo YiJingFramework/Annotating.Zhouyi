@@ -19,6 +19,7 @@ namespace YiJingFramework.Annotating.Zhouyi.Serialization
         public override ZhouyiStore? Read(
             ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            options = new JsonSerializerOptions(options);
             var context = new AnnotationStoreSerializerContext(options);
             var store = JsonSerializer.Deserialize(ref reader, context.AnnotationStore);
             return new ZhouyiStore(store);
@@ -33,6 +34,7 @@ namespace YiJingFramework.Annotating.Zhouyi.Serialization
         public override void Write(
             Utf8JsonWriter writer, ZhouyiStore value, JsonSerializerOptions options)
         {
+            options = new JsonSerializerOptions(options);
             var context = new AnnotationStoreSerializerContext(options);
             JsonSerializer.Serialize(writer, value.Store, context.AnnotationStore);
         }

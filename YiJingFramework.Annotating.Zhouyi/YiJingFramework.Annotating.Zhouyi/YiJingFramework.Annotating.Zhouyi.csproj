@@ -20,7 +20,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>zhouyi;i-ching;yijing;yijingframework</PackageTags>
 		<PackageId>YiJingFramework.Annotating.Zhouyi</PackageId>
-		<Version>3.1.0</Version>
+		<Version>3.1.1</Version>
 		<Company>YiJingFramework</Company>
 		<PackageIcon>Taichi.png</PackageIcon>
 	</PropertyGroup>
@@ -33,7 +33,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="YiJingFramework.Annotating" Version="2.1.0" />
+		<PackageReference Include="YiJingFramework.Annotating" Version="2.1.1" />
 	</ItemGroup>
 
 </Project>
