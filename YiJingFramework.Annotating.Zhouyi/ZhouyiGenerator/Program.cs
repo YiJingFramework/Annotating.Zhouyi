@@ -126,7 +126,7 @@ for (; lines.Count > 0;)
         var line = lines.Dequeue();
         if (!line.StartsWith($"{hexagram.Name}，"))
             throw new Exception();
-        hexagram.Text = line;
+        hexagram.Text = line[$"{hexagram.Name}，".Length..];
     }
     {
         // 《彖》曰：大哉乾元，萬物資始，乃統天。云行雨施，品物流形。大明始終，六位時成，時乘六龍以御天。乾道變化，各正性命，保合大和，乃利貞。首出庶物，萬國咸寧。

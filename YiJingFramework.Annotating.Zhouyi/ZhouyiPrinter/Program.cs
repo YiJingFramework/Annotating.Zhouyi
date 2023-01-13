@@ -24,7 +24,7 @@ for (int i = 0; i < 64; i++)
         $"第{hexagram.Index}卦 " +
         $"{upper.Nature}{lower.Nature}{hexagram.Name} " +
         $"{upper.Name}上{upper.Name}下");
-    Console.WriteLine($"{hexagram.Text}");
+    Console.WriteLine($"{hexagram.Name}：{hexagram.Text}");
     Console.WriteLine($"象曰：{hexagram.Xiang}");
     Console.WriteLine($"彖曰：{hexagram.Tuan}");
 
