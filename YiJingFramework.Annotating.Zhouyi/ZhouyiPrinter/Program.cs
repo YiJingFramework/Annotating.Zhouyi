@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using YiJingFramework.Annotating.Zhouyi;
-using YiJingFramework.Core;
+using YiJingFramework.PrimitiveTypes;
 
 Console.WriteLine("Path of the store file ('./store.json' by default):");
 var path = Console.ReadLine();
@@ -14,7 +14,7 @@ Debug.Assert(store is not null);
 for (int i = 0; i < 64; i++)
 {
     var paintingString = Convert.ToString(i, 2).PadLeft(6, '0');
-    var painting = Painting.Parse(paintingString);
+    var painting = Gua.Parse(paintingString);
     var hexagram = store.GetHexagram(painting);
     var (upperPainting, lowerPainting) = hexagram.SplitToTrigrams();
     var upper = store.GetTrigram(upperPainting);
@@ -28,7 +28,7 @@ for (int i = 0; i < 64; i++)
     Console.WriteLine($"象曰：{hexagram.Xiang}");
     Console.WriteLine($"彖曰：{hexagram.Tuan}");
 
-    string LineTitle(int line, YinYang yinYang)
+    static string LineTitle(int line, Yinyang yinYang)
     {
         var yinYangString = yinYang.IsYang ? "九" : "六";
         return line switch {

@@ -1,17 +1,16 @@
-﻿namespace YiJingFramework.Annotating.Zhouyi.Entities
+﻿namespace YiJingFramework.Annotating.Zhouyi.Entities;
+
+/// <summary>
+/// 《序卦》。
+/// Xugua.
+/// 此类型的实例不可比较。
+/// Instance of this type cannot be compared.
+/// </summary>
+public sealed record Xugua
 {
     /// <summary>
-    /// 《序卦》。
-    /// Xugua.
-    /// 此类型的实例不可比较。
-    /// Instance of this type cannot be compared.
+    /// 内容。
+    /// The content.
     /// </summary>
-    public sealed record Xugua
-    {
-        /// <summary>
-        /// 内容。
-        /// The content.
-        /// </summary>
-        public string? Content { get; set; }
-    }
+    public string? Content { get; set; }
 }

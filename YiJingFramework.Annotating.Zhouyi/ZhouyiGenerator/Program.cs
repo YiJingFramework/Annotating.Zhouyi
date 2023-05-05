@@ -2,7 +2,7 @@
 using System.Text.Json;
 using YiJingFramework.Annotating.Zhouyi;
 using YiJingFramework.Annotating.Zhouyi.Entities;
-using YiJingFramework.Core;
+using YiJingFramework.PrimitiveTypes;
 
 ZhouyiStore store = new ZhouyiStore(null) {
     Title = "Zhouyi"
@@ -10,35 +10,35 @@ ZhouyiStore store = new ZhouyiStore(null) {
 store.Tags.Add("origin: https://github.com/bollwarm/ZHOUYI.git");
 
 #region trigrams
-var qian = new ZhouyiTrigram(new Painting(YinYang.Yang, YinYang.Yang, YinYang.Yang)) {
+var qian = new ZhouyiTrigram(new Gua(Yinyang.Yang, Yinyang.Yang, Yinyang.Yang)) {
     Name = "乾",
     Nature = "天"
 };
-var dui = new ZhouyiTrigram(new Painting(YinYang.Yang, YinYang.Yang, YinYang.Yin)) {
+var dui = new ZhouyiTrigram(new Gua(Yinyang.Yang, Yinyang.Yang, Yinyang.Yin)) {
     Name = "兌",
     Nature = "澤"
 };
-var li = new ZhouyiTrigram(new Painting(YinYang.Yang, YinYang.Yin, YinYang.Yang)) {
+var li = new ZhouyiTrigram(new Gua(Yinyang.Yang, Yinyang.Yin, Yinyang.Yang)) {
     Name = "離",
     Nature = "火"
 };
-var zhen = new ZhouyiTrigram(new Painting(YinYang.Yang, YinYang.Yin, YinYang.Yin)) {
+var zhen = new ZhouyiTrigram(new Gua(Yinyang.Yang, Yinyang.Yin, Yinyang.Yin)) {
     Name = "震",
     Nature = "雷"
 };
-var xun = new ZhouyiTrigram(new Painting(YinYang.Yin, YinYang.Yang, YinYang.Yang)) {
+var xun = new ZhouyiTrigram(new Gua(Yinyang.Yin, Yinyang.Yang, Yinyang.Yang)) {
     Name = "巽",
     Nature = "風"
 };
-var kan = new ZhouyiTrigram(new Painting(YinYang.Yin, YinYang.Yang, YinYang.Yin)) {
+var kan = new ZhouyiTrigram(new Gua(Yinyang.Yin, Yinyang.Yang, Yinyang.Yin)) {
     Name = "坎",
     Nature = "水"
 };
-var gen = new ZhouyiTrigram(new Painting(YinYang.Yin, YinYang.Yin, YinYang.Yang)) {
+var gen = new ZhouyiTrigram(new Gua(Yinyang.Yin, Yinyang.Yin, Yinyang.Yang)) {
     Name = "艮",
     Nature = "山"
 };
-var kun = new ZhouyiTrigram(new Painting(YinYang.Yin, YinYang.Yin, YinYang.Yin)) {
+var kun = new ZhouyiTrigram(new Gua(Yinyang.Yin, Yinyang.Yin, Yinyang.Yin)) {
     Name = "坤",
     Nature = "地"
 };
@@ -79,7 +79,7 @@ for (; lines.Count > 0;)
         {
             upper = store.GetTrigramByName(s[1][4].ToString())!;
             lower = store.GetTrigramByName(s[1][6].ToString())!;
-            hexagram = new ZhouyiHexagram(new Painting(lower.Painting.Concat(upper.Painting))) {
+            hexagram = new ZhouyiHexagram(new Gua(lower.Painting.Concat(upper.Painting))) {
                 Name = s[1][0].ToString()
             };
         }
@@ -89,7 +89,7 @@ for (; lines.Count > 0;)
                 throw new Exception();
             upper = store.GetTrigramByName(s[1][6].ToString())!;
             lower = store.GetTrigramByName(s[1][8].ToString())!;
-            hexagram = new ZhouyiHexagram(new Painting(lower.Painting.Concat(upper.Painting))) {
+            hexagram = new ZhouyiHexagram(new Gua(lower.Painting.Concat(upper.Painting))) {
                 Name = s[1][0..2]
             };
         }

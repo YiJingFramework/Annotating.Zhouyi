@@ -33,7 +33,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="YiJingFramework.Annotating" Version="2.1.1" />
+		<PackageReference Include="YiJingFramework.Annotating" Version="3.0.1" />
+		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="1.4.0" />
 	</ItemGroup>
 
 </Project>
