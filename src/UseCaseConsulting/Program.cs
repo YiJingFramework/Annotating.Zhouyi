@@ -57,9 +57,7 @@ Console.WriteLine($"{qian.Name}: {qian.Text}");
 Console.WriteLine($"The first line: {qian.FirstLine.LineText}");
 Console.WriteLine();
 
-/* 
- * Outputs:
- * Test Store
- * Qian: Text of Qian here
- * The first line: Line 1 of Qian
- */
+// Outputs:
+// Test Store
+// Qian: Text of Qian here
+// The first line: Line 1 of Qian

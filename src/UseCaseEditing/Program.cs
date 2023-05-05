@@ -53,11 +53,9 @@ var s = """
 """;
 
 PrintQian(s);
-/* 
- * Outputs:
- * Qian: Text of Qian here
- * The first line: Line 1 of Qian
- */
+// Outputs:
+// Qian: Text of Qian here
+// The first line: Line 1 of Qian
 
 var store = ZhouyiStore.DeserializeFromJsonString(s);
 Debug.Assert(store is not null);
@@ -72,8 +70,6 @@ store.UpdateStore(qian);
 var newS = store.SerializeToJsonString();
 
 PrintQian(newS);
-/* 
- * Outputs:
- * Qian: Text of Qian here
- * The first line: QQQQQQQQQQQ
- */
+// Outputs:
+// Qian: Text of Qian here
+// The first line: QQQQQQQQQQQ
