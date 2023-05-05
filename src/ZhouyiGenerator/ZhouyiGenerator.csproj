@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\YiJingFramework.Annotating.Zhouyi\YiJingFramework.Annotating.Zhouyi.csproj" />
+    <ProjectReference Include="..\Annotating.Zhouyi\Annotating.Zhouyi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<RootNamespace>YiJingFramework.Annotating.Zhouyi</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<IsTrimmable>true</IsTrimmable>
+
+		<Version>4.0.0</Version>
+		<PackageId>YiJingFramework.Annotating.Zhouyi</PackageId>
+		<PackageProjectUrl>https://github.com/YiJingFramework/Annotating.Zhouyi/wiki</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/YiJingFramework/Annotating.Zhouyi.git</RepositoryUrl>
+		<Description>This package provides a specialized annotation scheme for Zhouyi (including Yizhuan).</Description>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Authors>yueyinqiu5990</Authors>
+		<Company>YiJingFramework</Company>
+		<PackageIcon>Taichi.png</PackageIcon>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>zhouyi;i-ching;yijing;yijingframework</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\Taichi.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="YiJingFramework.Annotating" Version="3.0.1" />
+		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="1.4.0" />
+	</ItemGroup>
+
+</Project>

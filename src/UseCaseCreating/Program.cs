@@ -1,13 +1,14 @@
 ﻿using YiJingFramework.Annotating.Zhouyi;
 using YiJingFramework.Annotating.Zhouyi.Entities;
-using YiJingFramework.Core;
+using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
 var store = new ZhouyiStore(null) {
     Title = "Test Store"
 };
 store.Tags.Add("It is a test!");
 
-var qianPainting = new Painting(Enumerable.Repeat(YinYang.Yang, 6));
+var qianPainting = new GuaHexagram(Enumerable.Repeat(Yinyang.Yang, 6));
 var qian = new ZhouyiHexagram(qianPainting);
 qian.Name = "Qian";
 qian.Text = "Text of Qian here";

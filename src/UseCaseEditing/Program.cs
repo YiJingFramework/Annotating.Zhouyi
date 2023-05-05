@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using YiJingFramework.Annotating.Zhouyi;
 
-void PrintQian(string storeString)
+static void PrintQian(string storeString)
 {
     var store = ZhouyiStore.DeserializeFromJsonString(storeString);
     var qian = store?.GetHexagramByName("qian");

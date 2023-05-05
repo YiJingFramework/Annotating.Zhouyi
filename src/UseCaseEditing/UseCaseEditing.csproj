@@ -5,12 +5,12 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-
+		
 		<PublishTrimmed>true</PublishTrimmed>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="YiJingFramework.Annotating.Zhouyi" Version="2.0.0" />
+	  <ProjectReference Include="..\Annotating.Zhouyi\Annotating.Zhouyi.csproj" />
 	</ItemGroup>
 
 </Project>
