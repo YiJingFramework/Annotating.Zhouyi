@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using YiJingFramework.Annotating.Zhouyi;
 using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
 Console.WriteLine("Path of the store file ('./store.json' by default):");
 var path = Console.ReadLine();
@@ -14,7 +15,7 @@ Debug.Assert(store is not null);
 for (int i = 0; i < 64; i++)
 {
     var paintingString = Convert.ToString(i, 2).PadLeft(6, '0');
-    var painting = Gua.Parse(paintingString);
+    var painting = GuaHexagram.Parse(paintingString);
     var hexagram = store.GetHexagram(painting);
     var (upperPainting, lowerPainting) = hexagram.SplitToTrigrams();
     var upper = store.GetTrigram(upperPainting);

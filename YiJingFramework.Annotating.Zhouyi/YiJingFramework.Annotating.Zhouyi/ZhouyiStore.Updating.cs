@@ -75,7 +75,7 @@ public sealed partial class ZhouyiStore
     public void UpdateStore(ZhouyiTrigram trigram)
     {
         ArgumentNullException.ThrowIfNull(trigram);
-        var painting = trigram.Painting;
+        var painting = trigram.Painting.AsGua();
         UpdateEntry(this.Groups.TrigramNameGroup, painting, trigram.Name);
         UpdateEntry(this.Groups.TrigramNatureGroup, painting, trigram.Nature);
     }
@@ -98,7 +98,7 @@ public sealed partial class ZhouyiStore
     {
         ArgumentNullException.ThrowIfNull(hexagram);
 
-        var painting = hexagram.Painting;
+        var painting = hexagram.Painting.AsGua();
         UpdateEntry(this.Groups.HexagramIndexGroup, painting, hexagram.Index);
         UpdateEntry(this.Groups.HexagramNameGroup, painting, hexagram.Name);
         UpdateEntry(this.Groups.HexagramTextGroup, painting, hexagram.Text);

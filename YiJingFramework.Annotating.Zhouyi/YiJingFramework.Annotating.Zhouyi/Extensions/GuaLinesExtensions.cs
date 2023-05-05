@@ -6,13 +6,13 @@ namespace YiJingFramework.Annotating.Zhouyi.Extensions;
 /// <seealso cref="GuaLines"/> 的扩展。
 /// Extensions of <seealso cref="GuaLines"/>.
 /// </summary>
-public static class PaintingLinesExtensions
+public static class GuaLinesExtensions
 {
     /// <summary>
     /// 判断某个 <seealso cref="GuaLines"/> 是否只表示一根爻。
     /// Judge whether a <seealso cref="GuaLines"/> represents one line only.
     /// </summary>
-    /// <param name="paintingLines">
+    /// <param name="guaLines">
     /// 要判断的 <seealso cref="GuaLines"/> 。
     /// The <seealso cref="GuaLines"/>.
     /// </param>
@@ -25,10 +25,10 @@ public static class PaintingLinesExtensions
     /// The result.
     /// </returns>
     public static bool IsSingleLine(
-        this GuaLines paintingLines,
+        this GuaLines guaLines,
         out int lineIndex)
     {
-        var lines = paintingLines.Lines;
+        var lines = guaLines.Lines;
 
         lineIndex = -1;
         for (int i = 0; i < lines.Count; i++)

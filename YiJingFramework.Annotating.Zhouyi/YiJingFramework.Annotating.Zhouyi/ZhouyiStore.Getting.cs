@@ -2,6 +2,7 @@
 using YiJingFramework.Annotating.Zhouyi.Entities;
 using YiJingFramework.Annotating.Zhouyi.Extensions;
 using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
 namespace YiJingFramework.Annotating.Zhouyi;
 
@@ -79,22 +80,14 @@ public sealed partial class ZhouyiStore
     /// <paramref name="painting"/> 是 <c>null</c> 。
     /// <paramref name="painting"/> is <c>null</c>.
     /// </exception>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="painting"/> 不表示一个三爻卦。
-    /// <paramref name="painting"/> does not represent a trigram.
-    /// </exception>
-    public ZhouyiTrigram GetTrigram(Gua painting)
+    public ZhouyiTrigram GetTrigram(GuaTrigram painting)
     {
         ArgumentNullException.ThrowIfNull(painting);
 
-        if (painting.Count is not 3)
-            throw new ArgumentException(
-                $"The painting {painting} does not represent a trigram.",
-                nameof(painting));
-
+        var guaPainting = painting.AsGua();
         return new ZhouyiTrigram(painting) {
-            Name = FindContent(this.Groups.TrigramNameGroup, painting),
-            Nature = FindContent(this.Groups.TrigramNatureGroup, painting)
+            Name = FindContent(this.Groups.TrigramNameGroup, guaPainting),
+            Nature = FindContent(this.Groups.TrigramNatureGroup, guaPainting)
         };
     }
 
@@ -128,7 +121,7 @@ public sealed partial class ZhouyiStore
         if (entry?.Target is null)
             return null;
         var painting = entry.Target;
-        return new ZhouyiTrigram(painting) {
+        return new ZhouyiTrigram(new(painting)) {
             Name = entry.Content,
             Nature = FindContent(this.Groups.TrigramNatureGroup, painting)
         };
@@ -164,7 +157,7 @@ public sealed partial class ZhouyiStore
         if (entry?.Target is null)
             return null;
         var painting = entry.Target;
-        return new ZhouyiTrigram(painting) {
+        return new ZhouyiTrigram(new(painting)) {
             Name = FindContent(this.Groups.TrigramNameGroup, painting),
             Nature = entry.Content
         };
@@ -172,7 +165,7 @@ public sealed partial class ZhouyiStore
 
     private void FillNoFindingProperties(ZhouyiHexagram hexagram)
     {
-        var painting = hexagram.Painting;
+        var painting = hexagram.Painting.AsGua();
         hexagram.Text = FindContent(this.Groups.HexagramTextGroup, painting);
 
         hexagram.Xiang = FindContent(this.Groups.XiangHexagramGroup, painting);
@@ -233,21 +226,14 @@ public sealed partial class ZhouyiStore
     /// <paramref name="painting"/> 是 <c>null</c> 。
     /// <paramref name="painting"/> is <c>null</c>.
     /// </exception>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="painting"/> 不表示一个六爻卦。
-    /// <paramref name="painting"/> does not represent a hexagram.
-    /// </exception>
-    public ZhouyiHexagram GetHexagram(Gua painting)
+    public ZhouyiHexagram GetHexagram(GuaHexagram painting)
     {
         ArgumentNullException.ThrowIfNull(painting);
 
-        if (painting.Count is not 6)
-            throw new ArgumentException(
-                $"The painting {painting} does not represent a hexagram.",
-                nameof(painting));
-        var result = new ZhouyiHexagram(painting) {
-            Name = FindContent(this.Groups.HexagramNameGroup, painting),
-            Index = FindContent(this.Groups.HexagramIndexGroup, painting)
+        var guaPainting = painting.AsGua();
+        var result = new ZhouyiHexagram(new(painting)) {
+            Name = FindContent(this.Groups.HexagramNameGroup, guaPainting),
+            Index = FindContent(this.Groups.HexagramIndexGroup, guaPainting)
         };
         this.FillNoFindingProperties(result);
         return result;
@@ -283,7 +269,7 @@ public sealed partial class ZhouyiStore
         if (entry?.Target is null)
             return null;
         var painting = entry.Target;
-        var result = new ZhouyiHexagram(painting) {
+        var result = new ZhouyiHexagram(new(painting)) {
             Name = entry.Content,
             Index = FindContent(this.Groups.HexagramIndexGroup, painting)
         };
@@ -321,7 +307,7 @@ public sealed partial class ZhouyiStore
         if (entry?.Target is null)
             return null;
         var painting = entry.Target;
-        var result = new ZhouyiHexagram(painting) {
+        var result = new ZhouyiHexagram(new(painting)) {
             Name = FindContent(this.Groups.HexagramNameGroup, painting),
             Index = entry.Content
         };

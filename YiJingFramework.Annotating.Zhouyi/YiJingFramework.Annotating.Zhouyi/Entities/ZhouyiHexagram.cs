@@ -1,4 +1,5 @@
 ﻿using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
 namespace YiJingFramework.Annotating.Zhouyi.Entities;
 
@@ -14,7 +15,7 @@ public sealed class ZhouyiHexagram
     /// 卦画。
     /// Painting of the hexagram.
     /// </summary>
-    public Gua Painting { get; }
+    public GuaHexagram Painting { get; }
 
     /// <summary>
     /// 创建一个没有任何信息的 <see cref="ZhouyiHexagram"/> 实例。
@@ -30,18 +31,9 @@ public sealed class ZhouyiHexagram
     /// <paramref name="painting"/> 是 <c>null</c> 。
     /// <paramref name="painting"/> is <c>null</c>.
     /// </exception>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="painting"/> 不表示六爻卦。
-    /// <paramref name="painting"/> does not represent a hexagram.
-    /// </exception>
-    public ZhouyiHexagram(Gua painting)
+    public ZhouyiHexagram(GuaHexagram painting)
     {
         ArgumentNullException.ThrowIfNull(painting);
-
-        if (painting.Count is not 6)
-            throw new ArgumentException(
-                $"The painting {painting} does not represent a hexagram.",
-                nameof(painting));
 
         this.Painting = painting;
 
@@ -165,12 +157,12 @@ public sealed class ZhouyiHexagram
     /// 两个三爻卦。
     /// Two trigrams.
     /// </returns>
-    public (Gua upper, Gua lower) SplitToTrigrams()
+    public (GuaTrigram upper, GuaTrigram lower) SplitToTrigrams()
     {
         var painting = this.Painting;
         return (
-            upper: new Gua(painting[3], painting[4], painting[5]),
-            lower: new Gua(painting[0], painting[1], painting[2])
+            upper: new GuaTrigram(painting[3], painting[4], painting[5]),
+            lower: new GuaTrigram(painting[0], painting[1], painting[2])
             );
     }
 }

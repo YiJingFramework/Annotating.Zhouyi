@@ -1,4 +1,5 @@
 ﻿using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
 namespace YiJingFramework.Annotating.Zhouyi.Entities;
 
@@ -14,7 +15,7 @@ public sealed class ZhouyiTrigram
     /// 卦画。
     /// Painting of the trigram.
     /// </summary>
-    public Gua Painting { get; }
+    public GuaTrigram Painting { get; }
 
     /// <summary>
     /// 创建一个没有任何信息的 <see cref="ZhouyiHexagram"/> 实例。
@@ -34,7 +35,7 @@ public sealed class ZhouyiTrigram
     /// <paramref name="painting"/> 不表示三爻卦。
     /// <paramref name="painting"/> does not represent a trigram.
     /// </exception>
-    public ZhouyiTrigram(Gua painting)
+    public ZhouyiTrigram(GuaTrigram painting)
     {
         ArgumentNullException.ThrowIfNull(painting);
 
