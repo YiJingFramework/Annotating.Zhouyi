@@ -1,5 +1,8 @@
-﻿using System.Text.Encodings.Web;
+﻿using System.Diagnostics;
+using System.Text.Encodings.Web;
 using YiJingFramework.Core;
+using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 using YiJingFramework.References.Zhouyi.Zhuan;
 using A = YiJingFramework.Annotating.Zhouyi;
 using R = YiJingFramework.References.Zhouyi;
@@ -19,9 +22,13 @@ if (!string.IsNullOrEmpty(jingPath))
     var zhouyi = new R.Zhouyi(jingPath);
     for (int i = 0; i < 8; i++)
     {
-        var painting = Painting.Parse(Convert.ToString(i, 2).PadLeft(3, '0'));
+        var trigramString = Convert.ToString(i, 2).PadLeft(3, '0');
+
+        _ = Painting.TryParse(trigramString, out var painting);
+        Debug.Assert(painting is not null);
         var trigram = zhouyi.GetTrigram(painting);
-        var newTrigram = store.GetTrigram(trigram.GetPainting());
+
+        var newTrigram = store.GetTrigram(GuaTrigram.Parse(trigramString));
 
         newTrigram.Nature = trigram.Nature;
         newTrigram.Name = trigram.Name;
@@ -31,7 +38,10 @@ if (!string.IsNullOrEmpty(jingPath))
     for (int i = 1; i <= 64; i++)
     {
         var hexagram = zhouyi.GetHexagram(i);
-        var newHexagram = store.GetHexagram(hexagram.GetPainting());
+
+        var painting = new GuaHexagram(
+            hexagram.GetPainting().Select(yinyang => new Yinyang(yinyang.IsYang)));
+        var newHexagram = store.GetHexagram(painting);
 
         newHexagram.Index = hexagram.Index.ToString();
         newHexagram.Name = hexagram.Name;
@@ -56,7 +66,10 @@ if (!string.IsNullOrEmpty(xiangPath))
     for (int i = 1; i <= 64; i++)
     {
         var hexagram = zhouyi.GetHexagram(i);
-        var newHexagram = store.GetHexagram(hexagram.GetPainting());
+
+        var painting = new GuaHexagram(
+            hexagram.GetPainting().Select(yinyang => new Yinyang(yinyang.IsYang)));
+        var newHexagram = store.GetHexagram(painting);
 
         newHexagram.Xiang = xiang[hexagram];
 
@@ -80,7 +93,10 @@ if (!string.IsNullOrEmpty(tuanPath))
     for (int i = 1; i <= 64; i++)
     {
         var hexagram = zhouyi.GetHexagram(i);
-        var newHexagram = store.GetHexagram(hexagram.GetPainting());
+
+        var painting = new GuaHexagram(
+            hexagram.GetPainting().Select(yinyang => new Yinyang(yinyang.IsYang)));
+        var newHexagram = store.GetHexagram(painting);
 
         newHexagram.Tuan = tuan[hexagram];
 

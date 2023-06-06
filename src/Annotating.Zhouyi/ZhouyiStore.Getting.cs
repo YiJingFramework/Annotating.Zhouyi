@@ -1,6 +1,9 @@
-﻿using YiJingFramework.Annotating.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using YiJingFramework.Annotating.Zhouyi.Entities;
-using YiJingFramework.Annotating.Zhouyi.Extensions;
+using YiJingFramework.Annotating.Zhouyi.InternalEntities;
 using YiJingFramework.PrimitiveTypes;
 using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
@@ -9,7 +12,7 @@ namespace YiJingFramework.Annotating.Zhouyi;
 public sealed partial class ZhouyiStore
 {
     #region painting
-    private static string? FindContent(AnnotationGroup<Gua> group, Gua target)
+    private static string? FindContent(AnnotationGroup group, string target)
     {
         foreach (var e in group.Entries)
         {
@@ -19,21 +22,31 @@ public sealed partial class ZhouyiStore
         return null;
     }
 
-    private static AnnotationEntry<Gua>? FindEntry(
-        AnnotationGroup<Gua> group,
+    private static bool FindEntry<TGua>(
+        AnnotationGroup group,
         string? content,
-        StringComparison comparisonType)
+        StringComparison comparisonType,
+        [MaybeNullWhen(false)] out AnnotationEntry resultEntry,
+        [MaybeNullWhen(false)] out TGua resultGua)
+        where TGua : IGuaWithFixedCount<TGua>
     {
         foreach (var e in group.Entries)
         {
             if (string.Equals(e.Content, content, comparisonType))
-                return e;
+            {
+                if (Gua.TryParse(e.Target, out var gua) && TGua.TryFromGua(gua, out resultGua))
+                {
+                    resultEntry = e;
+                    return true;
+                }
+            }
         }
-        return null;
+        resultEntry = null;
+        resultGua = default;
+        return false;
     }
 
-    private static string?[] FindSixContents(
-        AnnotationGroup<GuaLines> group, Gua target)
+    private static string?[] FindSixContents(AnnotationGroup group, GuaHexagram target)
     {
         var result = new string?[6];
         var foundRecord = new bool[6];
@@ -41,15 +54,15 @@ public sealed partial class ZhouyiStore
 
         foreach (var entry in group.Entries)
         {
-            if (entry.Target?.Gua == target)
+            if (!HexagramLine.CheckAndParse(entry.Target, out var guaLine))
+                continue;
+            if (guaLine.Gua == target)
             {
-                if (!entry.Target.IsSingleLine(out var lineIndex))
-                    continue;
-                if (foundRecord[lineIndex] is true)
+                if (foundRecord[guaLine.LineIndex] is true)
                     continue;
 
-                result[lineIndex] = entry.Content;
-                foundRecord[lineIndex] = true;
+                result[guaLine.LineIndex] = entry.Content;
+                foundRecord[guaLine.LineIndex] = true;
                 if (foundCount is 5)
                     break;
                 foundCount++;
@@ -84,10 +97,10 @@ public sealed partial class ZhouyiStore
     {
         ArgumentNullException.ThrowIfNull(painting);
 
-        var guaPainting = painting.AsGua();
+        var paintingString = painting.ToString();
         return new ZhouyiTrigram(painting) {
-            Name = FindContent(this.Groups.TrigramNameGroup, guaPainting),
-            Nature = FindContent(this.Groups.TrigramNatureGroup, guaPainting)
+            Name = FindContent(this.Groups.TrigramNameGroup, paintingString),
+            Nature = FindContent(this.Groups.TrigramNatureGroup, paintingString)
         };
     }
 
@@ -117,13 +130,15 @@ public sealed partial class ZhouyiStore
         string? name,
         StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
     {
-        var entry = FindEntry(this.Groups.TrigramNameGroup, name, comparisonType);
-        if (entry?.Target is null)
+        if (!FindEntry<GuaTrigram>(this.Groups.TrigramNameGroup,
+            name, comparisonType, out var entry, out var gua))
+        {
             return null;
-        var painting = entry.Target;
-        return new ZhouyiTrigram(new(painting)) {
+        }
+
+        return new ZhouyiTrigram(gua) {
             Name = entry.Content,
-            Nature = FindContent(this.Groups.TrigramNatureGroup, painting)
+            Nature = FindContent(this.Groups.TrigramNatureGroup, gua.ToString())
         };
     }
 
@@ -153,27 +168,28 @@ public sealed partial class ZhouyiStore
         string? nature,
         StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
     {
-        var entry = FindEntry(this.Groups.TrigramNatureGroup, nature, comparisonType);
-        if (entry?.Target is null)
+        if (!FindEntry<GuaTrigram>(this.Groups.TrigramNatureGroup,
+            nature, comparisonType, out var entry, out var gua))
+        {
             return null;
-        var painting = entry.Target;
-        return new ZhouyiTrigram(new(painting)) {
-            Name = FindContent(this.Groups.TrigramNameGroup, painting),
+        }
+        return new ZhouyiTrigram(gua) {
+            Name = FindContent(this.Groups.TrigramNameGroup, gua.ToString()),
             Nature = entry.Content
         };
     }
 
     private void FillNoFindingProperties(ZhouyiHexagram hexagram)
     {
-        var painting = hexagram.Painting.AsGua();
-        hexagram.Text = FindContent(this.Groups.HexagramTextGroup, painting);
+        var paintingString = hexagram.Painting.ToString();
+        hexagram.Text = FindContent(this.Groups.HexagramTextGroup, paintingString);
 
-        hexagram.Xiang = FindContent(this.Groups.XiangHexagramGroup, painting);
-        hexagram.Tuan = FindContent(this.Groups.TuanGroup, painting);
-        hexagram.Wenyan = FindContent(this.Groups.WenyanGroup, painting);
+        hexagram.Xiang = FindContent(this.Groups.XiangHexagramGroup, paintingString);
+        hexagram.Tuan = FindContent(this.Groups.TuanGroup, paintingString);
+        hexagram.Wenyan = FindContent(this.Groups.WenyanGroup, paintingString);
 
-        var linesText = FindSixContents(this.Groups.LineTextGroup, painting);
-        var linesXiang = FindSixContents(this.Groups.XiangLineGroup, painting);
+        var linesText = FindSixContents(this.Groups.LineTextGroup, hexagram.Painting);
+        var linesXiang = FindSixContents(this.Groups.XiangLineGroup, hexagram.Painting);
 
         var line = hexagram.FirstLine;
         line.LineText = linesText[0];
@@ -200,8 +216,8 @@ public sealed partial class ZhouyiStore
         line.Xiang = linesXiang[5];
 
         line = hexagram.Yong;
-        line.LineText = FindContent(this.Groups.HexagramYongTextGroup, painting);
-        line.Xiang = FindContent(this.Groups.XiangYongGroup, painting);
+        line.LineText = FindContent(this.Groups.HexagramYongTextGroup, paintingString);
+        line.Xiang = FindContent(this.Groups.XiangYongGroup, paintingString);
     }
 
     /// <summary>
@@ -230,10 +246,10 @@ public sealed partial class ZhouyiStore
     {
         ArgumentNullException.ThrowIfNull(painting);
 
-        var guaPainting = painting.AsGua();
-        var result = new ZhouyiHexagram(new(painting)) {
-            Name = FindContent(this.Groups.HexagramNameGroup, guaPainting),
-            Index = FindContent(this.Groups.HexagramIndexGroup, guaPainting)
+        var paintingString = painting.ToString();
+        var result = new ZhouyiHexagram(painting) {
+            Name = FindContent(this.Groups.HexagramNameGroup, paintingString),
+            Index = FindContent(this.Groups.HexagramIndexGroup, paintingString)
         };
         this.FillNoFindingProperties(result);
         return result;
@@ -265,13 +281,14 @@ public sealed partial class ZhouyiStore
         string? name,
         StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
     {
-        var entry = FindEntry(this.Groups.HexagramNameGroup, name, comparisonType);
-        if (entry?.Target is null)
+        if (!FindEntry<GuaHexagram>(this.Groups.HexagramNameGroup,
+            name, comparisonType, out var entry, out var gua))
+        {
             return null;
-        var painting = entry.Target;
-        var result = new ZhouyiHexagram(new(painting)) {
+        }
+        var result = new ZhouyiHexagram(gua) {
             Name = entry.Content,
-            Index = FindContent(this.Groups.HexagramIndexGroup, painting)
+            Index = FindContent(this.Groups.HexagramIndexGroup, gua.ToString())
         };
         this.FillNoFindingProperties(result);
         return result;
@@ -303,12 +320,13 @@ public sealed partial class ZhouyiStore
         string? index,
         StringComparison comparisonType = StringComparison.CurrentCultureIgnoreCase)
     {
-        var entry = FindEntry(this.Groups.HexagramIndexGroup, index, comparisonType);
-        if (entry?.Target is null)
+        if (!FindEntry<GuaHexagram>(this.Groups.HexagramIndexGroup,
+            index, comparisonType, out var entry, out var gua))
+        {
             return null;
-        var painting = entry.Target;
-        var result = new ZhouyiHexagram(new(painting)) {
-            Name = FindContent(this.Groups.HexagramNameGroup, painting),
+        }
+        var result = new ZhouyiHexagram(gua) {
+            Name = FindContent(this.Groups.HexagramNameGroup, gua.ToString()),
             Index = entry.Content
         };
         this.FillNoFindingProperties(result);
@@ -317,16 +335,6 @@ public sealed partial class ZhouyiStore
     #endregion
 
     #region string
-    private static string? FindContent(AnnotationGroup<string> group, string target)
-    {
-        foreach (var e in group.Entries)
-        {
-            if (e.Target == target)
-                return e.Content;
-        }
-        return null;
-    }
-
     /// <summary>
     /// 获取《系辞》。
     /// Get Xici.

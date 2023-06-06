@@ -1,15 +1,14 @@
 ﻿using System.Diagnostics;
-using YiJingFramework.Annotating.Entities;
 using YiJingFramework.Annotating.Zhouyi.Entities;
-using YiJingFramework.Annotating.Zhouyi.Extensions;
+using YiJingFramework.Annotating.Zhouyi.InternalEntities;
 using YiJingFramework.PrimitiveTypes;
+using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
 namespace YiJingFramework.Annotating.Zhouyi;
 
 public sealed partial class ZhouyiStore
 {
-    private static void UpdateEntry(
-        AnnotationGroup<Gua> group, Gua target, string? content)
+    private static void UpdateEntry(AnnotationGroup group, string target, string? content)
     {
         foreach (var e in group.Entries)
         {
@@ -24,7 +23,7 @@ public sealed partial class ZhouyiStore
     }
 
     private static void UpdateSixContents(
-        AnnotationGroup<GuaLines> group, Gua target, params string?[] contents)
+        AnnotationGroup group, GuaHexagram target, params string?[] contents)
     {
         Debug.Assert(contents.Length is 6);
 
@@ -32,15 +31,16 @@ public sealed partial class ZhouyiStore
         int foundCount = 0;
         foreach (var entry in group.Entries)
         {
-            if (entry.Target?.Gua == target)
+            if (!HexagramLine.CheckAndParse(entry.Target, out var guaLine))
+                continue;
+
+            if (guaLine.Gua == target)
             {
-                if (!entry.Target.IsSingleLine(out var lineIndex))
-                    continue;
-                if (foundRecord[lineIndex] is true)
+                if (foundRecord[guaLine.LineIndex] is true)
                     continue;
 
-                entry.Content = contents[lineIndex];
-                foundRecord[lineIndex] = true;
+                entry.Content = contents[guaLine.LineIndex];
+                foundRecord[guaLine.LineIndex] = true;
                 if (foundCount is 5)
                     return;
                 foundCount++;
@@ -53,7 +53,7 @@ public sealed partial class ZhouyiStore
             {
                 var content = contents[i];
                 if (content is not null)
-                    _ = group.AddEntry(new GuaLines(target, i), content);
+                    _ = group.AddEntry(new HexagramLine(target, i).ToString(), content);
             }
         }
     }
@@ -75,9 +75,9 @@ public sealed partial class ZhouyiStore
     public void UpdateStore(ZhouyiTrigram trigram)
     {
         ArgumentNullException.ThrowIfNull(trigram);
-        var painting = trigram.Painting.AsGua();
-        UpdateEntry(this.Groups.TrigramNameGroup, painting, trigram.Name);
-        UpdateEntry(this.Groups.TrigramNatureGroup, painting, trigram.Nature);
+        var paintingString = trigram.Painting.ToString();
+        UpdateEntry(this.Groups.TrigramNameGroup, paintingString, trigram.Name);
+        UpdateEntry(this.Groups.TrigramNatureGroup, paintingString, trigram.Nature);
     }
 
     /// <summary>
@@ -98,17 +98,17 @@ public sealed partial class ZhouyiStore
     {
         ArgumentNullException.ThrowIfNull(hexagram);
 
-        var painting = hexagram.Painting.AsGua();
-        UpdateEntry(this.Groups.HexagramIndexGroup, painting, hexagram.Index);
-        UpdateEntry(this.Groups.HexagramNameGroup, painting, hexagram.Name);
-        UpdateEntry(this.Groups.HexagramTextGroup, painting, hexagram.Text);
+        var paintingString = hexagram.Painting.ToString();
+        UpdateEntry(this.Groups.HexagramIndexGroup, paintingString, hexagram.Index);
+        UpdateEntry(this.Groups.HexagramNameGroup, paintingString, hexagram.Name);
+        UpdateEntry(this.Groups.HexagramTextGroup, paintingString, hexagram.Text);
 
-        UpdateEntry(this.Groups.XiangHexagramGroup, painting, hexagram.Xiang);
-        UpdateEntry(this.Groups.TuanGroup, painting, hexagram.Tuan);
-        UpdateEntry(this.Groups.WenyanGroup, painting, hexagram.Wenyan);
+        UpdateEntry(this.Groups.XiangHexagramGroup, paintingString, hexagram.Xiang);
+        UpdateEntry(this.Groups.TuanGroup, paintingString, hexagram.Tuan);
+        UpdateEntry(this.Groups.WenyanGroup, paintingString, hexagram.Wenyan);
 
         UpdateSixContents(
-            this.Groups.LineTextGroup, painting,
+            this.Groups.LineTextGroup, hexagram.Painting,
             hexagram.FirstLine.LineText,
             hexagram.SecondLine.LineText,
             hexagram.ThirdLine.LineText,
@@ -117,7 +117,7 @@ public sealed partial class ZhouyiStore
             hexagram.SixthLine.LineText);
 
         UpdateSixContents(
-            this.Groups.XiangLineGroup, painting,
+            this.Groups.XiangLineGroup, hexagram.Painting,
             hexagram.FirstLine.Xiang,
             hexagram.SecondLine.Xiang,
             hexagram.ThirdLine.Xiang,
@@ -125,23 +125,8 @@ public sealed partial class ZhouyiStore
             hexagram.FifthLine.Xiang,
             hexagram.SixthLine.Xiang);
 
-        UpdateEntry(this.Groups.HexagramYongTextGroup, painting, hexagram.Yong.LineText);
-        UpdateEntry(this.Groups.XiangYongGroup, painting, hexagram.Yong.Xiang);
-    }
-
-    private static void UpdateEntry(
-        AnnotationGroup<string> group, string target, string? content)
-    {
-        foreach (var e in group.Entries)
-        {
-            if (e.Target == target)
-            {
-                e.Content = content;
-                return;
-            }
-        }
-        if (content is not null)
-            _ = group.AddEntry(target, content);
+        UpdateEntry(this.Groups.HexagramYongTextGroup, paintingString, hexagram.Yong.LineText);
+        UpdateEntry(this.Groups.XiangYongGroup, paintingString, hexagram.Yong.Xiang);
     }
 
     /// <summary>

@@ -14,41 +14,43 @@ static void PrintQian(string storeString)
 
 var s = """
 {
-  "n": "Test Store",
-  "t": [
-    "It is a test!"
-  ],
-  "gp": [
-    {
-      "t": "Hexagram Name",
-      "e": [
+    "n": "Test Store",
+    "t": [
+        "It is a test!"
+    ],
+    "g": [
         {
-          "t": "111111",
-          "c": "Qian"
-        }
-      ]
-    },
-    {
-      "t": "Hexagram Text",
-      "e": [
+            "t": "Hexagram Index",
+            "e": []
+        },
         {
-          "t": "111111",
-          "c": "Text of Qian here"
-        }
-      ]
-    }
-  ],
-  "gl": [
-    {
-      "t": "Line Text",
-      "e": [
+            "t": "Hexagram Name",
+            "e": [
+                {
+                    "t": "111111",
+                    "c": "Qian"
+                }
+            ]
+        },
         {
-          "t": "111111100000",
-          "c": "Line 1 of Qian"
+            "t": "Hexagram Text",
+            "e": [
+                {
+                    "t": "111111",
+                    "c": "Text of Qian here"
+                }
+            ]
+        },
+        {
+            "t": "Line Text",
+            "e": [
+                {
+                    "t": "111111-0",
+                    "c": "Line 1 of Qian"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
 """;
 
