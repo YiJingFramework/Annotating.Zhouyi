@@ -165,4 +165,22 @@ public sealed class ZhouyiHexagram
             lower: new GuaTrigram(painting[0], painting[1], painting[2])
             );
     }
+
+    /// <summary>
+    /// 分割为上下两个三爻卦。
+    /// Split to two trigrams in the middle.
+    /// </summary>
+    /// <param name="store">
+    /// 提供信息的注解仓库。
+    /// The annotation store to provide information.
+    /// </param>
+    /// <returns>
+    /// 两个三爻卦。
+    /// Two trigrams.
+    /// </returns>
+    public (ZhouyiTrigram upper, ZhouyiTrigram lower) SplitToTrigrams(ZhouyiStore store)
+    {
+        var (upper, lower) = this.SplitToTrigrams();
+        return (store.GetTrigram(upper), store.GetTrigram(lower));
+    }
 }

@@ -8,7 +8,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 
-		<Version>5.0.0</Version>
+		<Version>5.1.0</Version>
 		<PackageId>YiJingFramework.Annotating.Zhouyi</PackageId>
 		<PackageProjectUrl>https://github.com/YiJingFramework/Annotating.Zhouyi/wiki</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/YiJingFramework/Annotating.Zhouyi.git</RepositoryUrl>
@@ -32,7 +32,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="YiJingFramework.Annotating" Version="4.0.0" />
-		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="1.4.0" />
+		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="1.5.0" />
 	</ItemGroup>
 
 </Project>
