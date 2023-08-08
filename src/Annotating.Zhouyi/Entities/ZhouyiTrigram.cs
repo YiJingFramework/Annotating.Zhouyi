@@ -70,13 +70,35 @@ public sealed class ZhouyiTrigram
     /// 六爻卦。
     /// A hexagram.
     /// </returns>
-    public Gua JoinAsUpper(ZhouyiTrigram lower)
+    public GuaHexagram JoinAsUpper(ZhouyiTrigram lower)
     {
         var upperPainting = this.Painting;
         var lowerPainting = lower.Painting;
-        return new Gua(
+        return new GuaHexagram(
             lowerPainting[0], lowerPainting[1], lowerPainting[2],
             upperPainting[0], upperPainting[1], upperPainting[2]);
+    }
+
+    /// <summary>
+    /// 作为上卦，和另外的三爻卦组成一个六爻卦。
+    /// As the upper one, be combined with another trigram to form a hexagram.
+    /// </summary>
+    /// <param name="lower">
+    /// 下卦。
+    /// The lower one.
+    /// </param>
+    /// <param name="store">
+    /// 提供信息的注解仓库。
+    /// The annotation store to provide information.
+    /// </param>
+    /// <returns>
+    /// 六爻卦。
+    /// A hexagram.
+    /// </returns>
+    public ZhouyiHexagram JoinAsUpper(ZhouyiTrigram lower, ZhouyiStore store)
+    {
+        var gua = this.JoinAsUpper(lower);
+        return store.GetHexagram(gua);
     }
 
     /// <summary>
@@ -91,12 +113,34 @@ public sealed class ZhouyiTrigram
     /// 六爻卦。
     /// A hexagram.
     /// </returns>
-    public Gua JoinAsLower(ZhouyiTrigram upper)
+    public GuaHexagram JoinAsLower(ZhouyiTrigram upper)
     {
         var upperPainting = upper.Painting;
         var lowerPainting = this.Painting;
-        return new Gua(
+        return new GuaHexagram(
             lowerPainting[0], lowerPainting[1], lowerPainting[2],
             upperPainting[0], upperPainting[1], upperPainting[2]);
+    }
+
+    /// <summary>
+    /// 作为下卦，和另外的三爻卦组成一个六爻卦。
+    /// As the lower one, be combined with another trigram to form a hexagram.
+    /// </summary>
+    /// <param name="upper">
+    /// 上卦。
+    /// The upper one.
+    /// </param>
+    /// <param name="store">
+    /// 提供信息的注解仓库。
+    /// The annotation store to provide information.
+    /// </param>
+    /// <returns>
+    /// 六爻卦。
+    /// A hexagram.
+    /// </returns>
+    public ZhouyiHexagram JoinAsLower(ZhouyiTrigram upper, ZhouyiStore store)
+    {
+        var gua = this.JoinAsLower(upper);
+        return store.GetHexagram(gua);
     }
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -31,8 +31,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="YiJingFramework.Annotating" Version="4.0.0" />
-		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="1.5.0" />
+		<PackageReference Include="YiJingFramework.Annotating" Version="4.1.0" />
+		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="1.6.0" />
 	</ItemGroup>
 
 </Project>

@@ -15,22 +15,13 @@ public sealed class ZhouyiGroups
 
     private readonly ZhouyiStore store;
 
-    private AnnotationGroup DoGroupPropertyWork(
-        ref AnnotationGroup? field, string title)
+    private AnnotationGroup GetGroup(string title)
     {
-        if (field is not null)
-            return field;
         var annotationStore = this.store.Store;
-        foreach (var g in annotationStore.Groups)
-        {
-            if (g.Title == title)
-            {
-                field = g;
-                return field;
-            }
-        }
-        field = annotationStore.AddGroup(title);
-        return field;
+        var result = annotationStore.GetGroup(title);
+        if (result is not null)
+            return result;
+        return annotationStore.AddGroup(title);
     }
     #region trigram
     /// <summary>
@@ -42,20 +33,14 @@ public sealed class ZhouyiGroups
     /// </summary>
     public const string TITLE_TRIGRAM_NATURE = "Trigram Nature";
 
-    private AnnotationGroup? trigramNameGroup;
-
     /// <summary>
     /// 
     /// </summary>
-    public AnnotationGroup TrigramNameGroup
-        => this.DoGroupPropertyWork(ref this.trigramNameGroup, TITLE_TRIGRAM_NAME);
-
-    private AnnotationGroup? trigramNatureGroup;
+    public AnnotationGroup TrigramNameGroup => this.GetGroup(TITLE_TRIGRAM_NAME);
     /// <summary>
     /// 
     /// </summary>
-    public AnnotationGroup TrigramNatureGroup
-        => this.DoGroupPropertyWork(ref this.trigramNatureGroup, TITLE_TRIGRAM_NATURE);
+    public AnnotationGroup TrigramNatureGroup => this.GetGroup(TITLE_TRIGRAM_NATURE);
     #endregion trigram
 
     #region hexagram
@@ -105,85 +90,49 @@ public sealed class ZhouyiGroups
     /// </summary>
     public const string TITLE_WENYAN = "Wenyan";
 
-    private AnnotationGroup? hexagramNameGroup;
+    /// <summary>
+    /// 
+    /// </summary>
+    public AnnotationGroup HexagramNameGroup => this.GetGroup(TITLE_HEXAGRAM_NAME);
+    /// <summary>
+    /// 
+    /// </summary>
+    public AnnotationGroup HexagramIndexGroup => this.GetGroup(TITLE_HEXAGRAM_INDEX);
+    /// <summary>
+    /// 
+    /// </summary>
+    public AnnotationGroup HexagramTextGroup => this.GetGroup(TITLE_HEXAGRAM_TEXT);
+    /// <summary>
+    /// 
+    /// </summary>
+    public AnnotationGroup HexagramYongTextGroup => this.GetGroup(TITLE_HEXAGRAM_YONG_TEXT);
+    /// <summary>
+    /// 
+    /// </summary>
+    public AnnotationGroup LineTextGroup => this.GetGroup(TITLE_LINE_TEXT);
+    /// <summary>
+    /// 
+    /// </summary>
+    public AnnotationGroup XiangHexagramGroup => this.GetGroup(TITLE_XIANG_HEXAGRAM);
 
     /// <summary>
     /// 
     /// </summary>
-    public AnnotationGroup HexagramNameGroup
-        => this.DoGroupPropertyWork(ref this.hexagramNameGroup, TITLE_HEXAGRAM_NAME);
-
-    private AnnotationGroup? hexagramIndexGroup;
+    public AnnotationGroup TuanGroup => this.GetGroup(TITLE_TUAN);
+    /// <summary>
+    /// 
+    /// </summary>
+    public AnnotationGroup WenyanGroup => this.GetGroup(TITLE_WENYAN);
 
     /// <summary>
     /// 
     /// </summary>
-    public AnnotationGroup HexagramIndexGroup
-        => this.DoGroupPropertyWork(ref this.hexagramIndexGroup, TITLE_HEXAGRAM_INDEX);
-
-    private AnnotationGroup? hexagramTextGroup;
+    public AnnotationGroup XiangLineGroup => this.GetGroup(TITLE_XIANG_LINE);
 
     /// <summary>
     /// 
     /// </summary>
-    public AnnotationGroup HexagramTextGroup
-        => this.DoGroupPropertyWork(ref this.hexagramTextGroup, TITLE_HEXAGRAM_TEXT);
-
-    private AnnotationGroup? hexagramYongTextGroup;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public AnnotationGroup HexagramYongTextGroup
-        => this.DoGroupPropertyWork(ref this.hexagramYongTextGroup, TITLE_HEXAGRAM_YONG_TEXT);
-
-    private AnnotationGroup? lineTextGroup;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public AnnotationGroup LineTextGroup
-        => this.DoGroupPropertyWork(ref this.lineTextGroup, TITLE_LINE_TEXT);
-
-    private AnnotationGroup? xiangHexagramGroup;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public AnnotationGroup XiangHexagramGroup
-        => this.DoGroupPropertyWork(ref this.xiangHexagramGroup, TITLE_XIANG_HEXAGRAM);
-
-    private AnnotationGroup? tuanGroup;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public AnnotationGroup TuanGroup
-        => this.DoGroupPropertyWork(ref this.tuanGroup, TITLE_TUAN);
-
-    private AnnotationGroup? wenyanGroup;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public AnnotationGroup WenyanGroup
-        => this.DoGroupPropertyWork(ref this.wenyanGroup, TITLE_WENYAN);
-
-    private AnnotationGroup? xiangLineGroup;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public AnnotationGroup XiangLineGroup
-        => this.DoGroupPropertyWork(ref this.xiangLineGroup, TITLE_XIANG_LINE);
-
-    private AnnotationGroup? xiangYongGroup;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public AnnotationGroup XiangYongGroup
-        => this.DoGroupPropertyWork(ref this.xiangYongGroup, TITLE_XIANG_YONG);
+    public AnnotationGroup XiangYongGroup => this.GetGroup(TITLE_XIANG_YONG);
 
     #endregion hexagram
 
@@ -193,13 +142,10 @@ public sealed class ZhouyiGroups
     /// </summary>
     public const string TITLE_THE_REST_OF_YIZHUAN = "The rest (of Yizhuan)";
 
-    private AnnotationGroup? theRestOfYizhuanGroup;
-
     /// <summary>
     /// 
     /// </summary>
-    public AnnotationGroup TheRestOfYizhuanGroup
-        => this.DoGroupPropertyWork(ref this.theRestOfYizhuanGroup, TITLE_THE_REST_OF_YIZHUAN);
+    public AnnotationGroup TheRestOfYizhuanGroup => this.GetGroup(TITLE_THE_REST_OF_YIZHUAN);
 
     /// <summary>
     /// 

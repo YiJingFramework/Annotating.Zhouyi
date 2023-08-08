@@ -14,12 +14,7 @@ public sealed partial class ZhouyiStore
     #region painting
     private static string? FindContent(AnnotationGroup group, string target)
     {
-        foreach (var e in group.Entries)
-        {
-            if (e.Target == target)
-                return e.Content;
-        }
-        return null;
+        return group.GetEntry(target)?.Content;
     }
 
     private static bool FindEntry<TGua>(
