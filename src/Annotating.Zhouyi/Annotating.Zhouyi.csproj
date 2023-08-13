@@ -12,10 +12,7 @@
 		<PackageId>YiJingFramework.Annotating.Zhouyi</PackageId>
 		<PackageProjectUrl>https://github.com/YiJingFramework/Annotating.Zhouyi/wiki</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/YiJingFramework/Annotating.Zhouyi.git</RepositoryUrl>
-		<Description>
-			此包提供了一套针对《周易》与《易传》的注解仓库读写方案。
-			This package provides a solution to read and write the annotation stores of Zhouyi and Yizhuan.
-		</Description>
+		<Description>此包提供了一套针对《周易》与《易传》的注解仓库读写方案。 This package provides a solution to read and write the annotation stores of Zhouyi and Yizhuan.</Description>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
