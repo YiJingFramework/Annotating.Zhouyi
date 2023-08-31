@@ -5,8 +5,8 @@ namespace YiJingFramework.Annotating.Zhouyi.Entities;
 
 /// <summary>
 /// 三爻卦。
-/// A trigram.
 /// 此类型的实例不可比较。如果需要，可以比较 <seealso cref="Painting"/> 。
+/// A trigram.
 /// Instance of this type cannot be compared. If required, compare their <seealso cref="Painting"/>s.
 /// </summary>
 public sealed class ZhouyiTrigram
@@ -19,8 +19,8 @@ public sealed class ZhouyiTrigram
 
     /// <summary>
     /// 创建一个没有任何信息的 <see cref="ZhouyiHexagram"/> 实例。
-    /// Create an instance of <see cref="ZhouyiHexagram"/> without any information.
     /// 如果是需要查询信息，应通过 <seealso cref="ZhouyiStore"/> 来进行获取。
+    /// Create an instance of <see cref="ZhouyiHexagram"/> without any information.
     /// Get the instance with <seealso cref="ZhouyiStore"/> if you wants to get the information.
     /// </summary>
     /// <param name="painting">

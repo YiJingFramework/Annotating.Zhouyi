@@ -2,8 +2,8 @@
 
 /// <summary>
 /// 《序卦》。
-/// Xugua.
 /// 此类型的实例不可比较。
+/// Xugua.
 /// Instance of this type cannot be compared.
 /// </summary>
 public sealed record Xugua

@@ -63,7 +63,7 @@ public sealed class ZhouyiGroups
     /// <summary>
     /// 
     /// </summary>
-    public const string TITLE_LINE_TEXT = "Line Text";
+    public const string TITLE_YAO_TEXT = "Line Text";
 
     /// <summary>
     /// 
@@ -73,7 +73,7 @@ public sealed class ZhouyiGroups
     /// <summary>
     /// 
     /// </summary>
-    public const string TITLE_XIANG_LINE = "Xiang (Line)";
+    public const string TITLE_XIANG_YAO = "Xiang (Line)";
 
     /// <summary>
     /// 
@@ -109,7 +109,7 @@ public sealed class ZhouyiGroups
     /// <summary>
     /// 
     /// </summary>
-    public AnnotationGroup LineTextGroup => this.GetGroup(TITLE_LINE_TEXT);
+    public AnnotationGroup YaoTextGroup => this.GetGroup(TITLE_YAO_TEXT);
     /// <summary>
     /// 
     /// </summary>
@@ -127,7 +127,7 @@ public sealed class ZhouyiGroups
     /// <summary>
     /// 
     /// </summary>
-    public AnnotationGroup XiangLineGroup => this.GetGroup(TITLE_XIANG_LINE);
+    public AnnotationGroup XiangYaoGroup => this.GetGroup(TITLE_XIANG_YAO);
 
     /// <summary>
     /// 

@@ -8,7 +8,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<IsTrimmable>true</IsTrimmable>
 
-		<Version>5.2.0</Version>
+		<Version>6.0.0</Version>
 		<PackageId>YiJingFramework.Annotating.Zhouyi</PackageId>
 		<PackageProjectUrl>https://github.com/YiJingFramework/Annotating.Zhouyi/wiki</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/YiJingFramework/Annotating.Zhouyi.git</RepositoryUrl>
@@ -20,7 +20,11 @@
 		<Company>YiJingFramework</Company>
 		<PackageIcon>Taichi.png</PackageIcon>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>zhouyi;i-ching;yijing;yijingframework</PackageTags>
+		<PackageTags>
+			YiJingFramework;周易;Zhouyi;易经;Yijing;IChing;十翼;易传;Yizhuan;
+			象;Xiang;大象;Daxiang;小象;Xiaoxiang;彖;Tuan;文言;Wenyan;
+			说卦;Shuogua;系词;Xici;序卦;Xugua;杂卦;Zagua
+		</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
@@ -37,7 +41,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="YiJingFramework.Annotating" Version="4.1.1" />
-		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="1.6.0" />
+		<PackageReference Include="YiJingFramework.PrimitiveTypes.GuaWithFixedCount" Version="3.0.1" />
 	</ItemGroup>
 
 </Project>

@@ -49,15 +49,15 @@ public sealed partial class ZhouyiStore
 
         foreach (var entry in group.Entries)
         {
-            if (!HexagramLine.CheckAndParse(entry.Target, out var guaLine))
+            if (!HexagramYao.CheckAndParse(entry.Target, out var guaYao))
                 continue;
-            if (guaLine.Gua == target)
+            if (guaYao.Gua == target)
             {
-                if (foundRecord[guaLine.LineIndex] is true)
+                if (foundRecord[guaYao.YaoIndex] is true)
                     continue;
 
-                result[guaLine.LineIndex] = entry.Content;
-                foundRecord[guaLine.LineIndex] = true;
+                result[guaYao.YaoIndex] = entry.Content;
+                foundRecord[guaYao.YaoIndex] = true;
                 if (foundCount is 5)
                     break;
                 foundCount++;
@@ -183,36 +183,36 @@ public sealed partial class ZhouyiStore
         hexagram.Tuan = FindContent(this.Groups.TuanGroup, paintingString);
         hexagram.Wenyan = FindContent(this.Groups.WenyanGroup, paintingString);
 
-        var linesText = FindSixContents(this.Groups.LineTextGroup, hexagram.Painting);
-        var linesXiang = FindSixContents(this.Groups.XiangLineGroup, hexagram.Painting);
+        var yaosText = FindSixContents(this.Groups.YaoTextGroup, hexagram.Painting);
+        var yaosXiang = FindSixContents(this.Groups.XiangYaoGroup, hexagram.Painting);
 
-        var line = hexagram.FirstLine;
-        line.LineText = linesText[0];
-        line.Xiang = linesXiang[0];
+        var yao = hexagram.FirstYao;
+        yao.YaoText = yaosText[0];
+        yao.Xiang = yaosXiang[0];
 
-        line = hexagram.SecondLine;
-        line.LineText = linesText[1];
-        line.Xiang = linesXiang[1];
+        yao = hexagram.SecondYao;
+        yao.YaoText = yaosText[1];
+        yao.Xiang = yaosXiang[1];
 
-        line = hexagram.ThirdLine;
-        line.LineText = linesText[2];
-        line.Xiang = linesXiang[2];
+        yao = hexagram.ThirdYao;
+        yao.YaoText = yaosText[2];
+        yao.Xiang = yaosXiang[2];
 
-        line = hexagram.FourthLine;
-        line.LineText = linesText[3];
-        line.Xiang = linesXiang[3];
+        yao = hexagram.FourthYao;
+        yao.YaoText = yaosText[3];
+        yao.Xiang = yaosXiang[3];
 
-        line = hexagram.FifthLine;
-        line.LineText = linesText[4];
-        line.Xiang = linesXiang[4];
+        yao = hexagram.FifthYao;
+        yao.YaoText = yaosText[4];
+        yao.Xiang = yaosXiang[4];
 
-        line = hexagram.SixthLine;
-        line.LineText = linesText[5];
-        line.Xiang = linesXiang[5];
+        yao = hexagram.SixthYao;
+        yao.YaoText = yaosText[5];
+        yao.Xiang = yaosXiang[5];
 
-        line = hexagram.Yong;
-        line.LineText = FindContent(this.Groups.HexagramYongTextGroup, paintingString);
-        line.Xiang = FindContent(this.Groups.XiangYongGroup, paintingString);
+        yao = hexagram.Yong;
+        yao.YaoText = FindContent(this.Groups.HexagramYongTextGroup, paintingString);
+        yao.Xiang = FindContent(this.Groups.XiangYongGroup, paintingString);
     }
 
     /// <summary>

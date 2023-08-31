@@ -8,14 +8,14 @@ using YiJingFramework.PrimitiveTypes;
 using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
 namespace YiJingFramework.Annotating.Zhouyi.InternalEntities;
-internal sealed record HexagramLine(GuaHexagram Gua, int LineIndex)
+internal sealed record HexagramYao(GuaHexagram Gua, int YaoIndex)
 {
     public override string ToString()
     {
-        return $"{this.Gua}-{this.LineIndex}";
+        return $"{this.Gua}-{this.YaoIndex}";
     }
 
-    public static bool CheckAndParse(string? s, [MaybeNullWhen(false)] out HexagramLine result)
+    public static bool CheckAndParse(string? s, [MaybeNullWhen(false)] out HexagramYao result)
     {
         if(s is null)
         {

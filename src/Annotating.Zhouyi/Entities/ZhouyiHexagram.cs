@@ -5,8 +5,8 @@ namespace YiJingFramework.Annotating.Zhouyi.Entities;
 
 /// <summary>
 /// 六爻卦。
-/// A hexagram.
 /// 此类型的实例不可比较。如果需要，可以比较 <seealso cref="Painting"/> 。
+/// A hexagram.
 /// Instance of this type cannot be compared. If required, compare their <seealso cref="Painting"/>s.
 /// </summary>
 public sealed class ZhouyiHexagram
@@ -19,8 +19,8 @@ public sealed class ZhouyiHexagram
 
     /// <summary>
     /// 创建一个没有任何信息的 <see cref="ZhouyiHexagram"/> 实例。
-    /// Create an instance of <see cref="ZhouyiHexagram"/> without any information.
     /// 如果是需要查询信息，应通过 <seealso cref="ZhouyiStore"/> 来进行获取。
+    /// Create an instance of <see cref="ZhouyiHexagram"/> without any information.
     /// Get the instance with <seealso cref="ZhouyiStore"/> if you wants to get the information.
     /// </summary>
     /// <param name="painting">
@@ -37,12 +37,12 @@ public sealed class ZhouyiHexagram
 
         this.Painting = painting;
 
-        this.FirstLine = new(this, 1);
-        this.SecondLine = new(this, 2);
-        this.ThirdLine = new(this, 3);
-        this.FourthLine = new(this, 4);
-        this.FifthLine = new(this, 5);
-        this.SixthLine = new(this, 6);
+        this.FirstYao = new(this, 1);
+        this.SecondYao = new(this, 2);
+        this.ThirdYao = new(this, 3);
+        this.FourthYao = new(this, 4);
+        this.FifthYao = new(this, 5);
+        this.SixthYao = new(this, 6);
 
         this.Yong = new(this, 0);
     }
@@ -85,49 +85,49 @@ public sealed class ZhouyiHexagram
 
     /// <summary>
     /// 初爻。
-    /// The first line.
+    /// The first Yao.
     /// </summary>
-    public ZhouyiHexagramLine FirstLine { get; }
+    public ZhouyiHexagramYao FirstYao { get; }
 
     /// <summary>
     /// 二爻。
-    /// The second line.
+    /// The second Yao.
     /// </summary>
-    public ZhouyiHexagramLine SecondLine { get; }
+    public ZhouyiHexagramYao SecondYao { get; }
 
     /// <summary>
     /// 三爻。
-    /// The third line.
+    /// The third Yao.
     /// </summary>
-    public ZhouyiHexagramLine ThirdLine { get; }
+    public ZhouyiHexagramYao ThirdYao { get; }
 
     /// <summary>
     /// 四爻。
-    /// The fourth line.
+    /// The fourth Yao.
     /// </summary>
-    public ZhouyiHexagramLine FourthLine { get; }
+    public ZhouyiHexagramYao FourthYao { get; }
 
     /// <summary>
     /// 五爻。
-    /// The fifth line.
+    /// The fifth Yao.
     /// </summary>
-    public ZhouyiHexagramLine FifthLine { get; }
+    public ZhouyiHexagramYao FifthYao { get; }
 
     /// <summary>
     /// 六爻。
-    /// The sixth line.
+    /// The sixth Yao.
     /// </summary>
-    public ZhouyiHexagramLine SixthLine { get; }
+    public ZhouyiHexagramYao SixthYao { get; }
 
     /// <summary>
     /// 用九用六。
     /// Yong.
     /// </summary>
-    public ZhouyiHexagramLine Yong { get; }
+    public ZhouyiHexagramYao Yong { get; }
 
     /// <summary>
     /// 返回包含所有爻的枚举。
-    /// Enumerate all the lines.
+    /// Enumerate all the Yao-s.
     /// </summary>
     /// <param name="includeYong">
     /// 指示是否要包含用九用六。
@@ -135,16 +135,16 @@ public sealed class ZhouyiHexagram
     /// </param>
     /// <returns>
     /// 所有爻。
-    /// All the lines.
+    /// All the Yao-s.
     /// </returns>
-    public IEnumerable<ZhouyiHexagramLine> EnumerateLines(bool includeYong = true)
+    public IEnumerable<ZhouyiHexagramYao> EnumerateYaos(bool includeYong = true)
     {
-        yield return this.FirstLine;
-        yield return this.SecondLine;
-        yield return this.ThirdLine;
-        yield return this.FourthLine;
-        yield return this.FifthLine;
-        yield return this.SixthLine;
+        yield return this.FirstYao;
+        yield return this.SecondYao;
+        yield return this.ThirdYao;
+        yield return this.FourthYao;
+        yield return this.FifthYao;
+        yield return this.SixthYao;
         if (includeYong)
             yield return this.Yong;
     }

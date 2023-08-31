@@ -31,16 +31,16 @@ public sealed partial class ZhouyiStore
         int foundCount = 0;
         foreach (var entry in group.Entries)
         {
-            if (!HexagramLine.CheckAndParse(entry.Target, out var guaLine))
+            if (!HexagramYao.CheckAndParse(entry.Target, out var guaYao))
                 continue;
 
-            if (guaLine.Gua == target)
+            if (guaYao.Gua == target)
             {
-                if (foundRecord[guaLine.LineIndex] is true)
+                if (foundRecord[guaYao.YaoIndex] is true)
                     continue;
 
-                entry.Content = contents[guaLine.LineIndex];
-                foundRecord[guaLine.LineIndex] = true;
+                entry.Content = contents[guaYao.YaoIndex];
+                foundRecord[guaYao.YaoIndex] = true;
                 if (foundCount is 5)
                     return;
                 foundCount++;
@@ -53,7 +53,7 @@ public sealed partial class ZhouyiStore
             {
                 var content = contents[i];
                 if (content is not null)
-                    _ = group.AddEntry(new HexagramLine(target, i).ToString(), content);
+                    _ = group.AddEntry(new HexagramYao(target, i).ToString(), content);
             }
         }
     }
@@ -108,24 +108,24 @@ public sealed partial class ZhouyiStore
         UpdateEntry(this.Groups.WenyanGroup, paintingString, hexagram.Wenyan);
 
         UpdateSixContents(
-            this.Groups.LineTextGroup, hexagram.Painting,
-            hexagram.FirstLine.LineText,
-            hexagram.SecondLine.LineText,
-            hexagram.ThirdLine.LineText,
-            hexagram.FourthLine.LineText,
-            hexagram.FifthLine.LineText,
-            hexagram.SixthLine.LineText);
+            this.Groups.YaoTextGroup, hexagram.Painting,
+            hexagram.FirstYao.YaoText,
+            hexagram.SecondYao.YaoText,
+            hexagram.ThirdYao.YaoText,
+            hexagram.FourthYao.YaoText,
+            hexagram.FifthYao.YaoText,
+            hexagram.SixthYao.YaoText);
 
         UpdateSixContents(
-            this.Groups.XiangLineGroup, hexagram.Painting,
-            hexagram.FirstLine.Xiang,
-            hexagram.SecondLine.Xiang,
-            hexagram.ThirdLine.Xiang,
-            hexagram.FourthLine.Xiang,
-            hexagram.FifthLine.Xiang,
-            hexagram.SixthLine.Xiang);
+            this.Groups.XiangYaoGroup, hexagram.Painting,
+            hexagram.FirstYao.Xiang,
+            hexagram.SecondYao.Xiang,
+            hexagram.ThirdYao.Xiang,
+            hexagram.FourthYao.Xiang,
+            hexagram.FifthYao.Xiang,
+            hexagram.SixthYao.Xiang);
 
-        UpdateEntry(this.Groups.HexagramYongTextGroup, paintingString, hexagram.Yong.LineText);
+        UpdateEntry(this.Groups.HexagramYongTextGroup, paintingString, hexagram.Yong.YaoText);
         UpdateEntry(this.Groups.XiangYongGroup, paintingString, hexagram.Yong.Xiang);
     }
 

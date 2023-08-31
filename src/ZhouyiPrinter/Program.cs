@@ -42,17 +42,17 @@ for (int i = 0; i < 64; i++)
             _ => $"用{yinYangString}"
         };
     }
-    foreach (var line in hexagram.EnumerateLines(false))
+    foreach (var line in hexagram.EnumerateYaos(false))
     {
         Debug.Assert(line.YinYang.HasValue);
-        var title = LineTitle(line.LineIndex, line.YinYang.Value);
-        Console.WriteLine($"{title}：{line.LineText}");
+        var title = LineTitle(line.YaoIndex, line.YinYang.Value);
+        Console.WriteLine($"{title}：{line.YaoText}");
         Console.WriteLine($"象曰：{line.Xiang}");
     }
-    if (hexagram.Yong.LineText is not null || hexagram.Yong.Xiang is not null)
+    if (hexagram.Yong.YaoText is not null || hexagram.Yong.Xiang is not null)
     {
         var title = LineTitle(0, painting[0]);
-        Console.WriteLine($"{title}：{hexagram.Yong.LineText}");
+        Console.WriteLine($"{title}：{hexagram.Yong.YaoText}");
         Console.WriteLine($"象曰：{hexagram.Yong.Xiang}");
     }
     if (hexagram.Wenyan is not null)

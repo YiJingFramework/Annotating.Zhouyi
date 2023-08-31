@@ -2,8 +2,8 @@
 
 /// <summary>
 /// 《系辞》。
-/// Xici.
 /// 此类型的实例不可比较。
+/// Xici.
 /// Instance of this type cannot be compared.
 /// </summary>
 public sealed record Xici

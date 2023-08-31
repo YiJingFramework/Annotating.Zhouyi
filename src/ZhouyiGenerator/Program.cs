@@ -149,7 +149,7 @@ for (; lines.Count > 0;)
         var starting = "初" + (hexagram.Painting[0].IsYang ? "九" : "六") + "：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FirstLine.LineText = line[starting.Length..];
+        hexagram.FirstYao.YaoText = line[starting.Length..];
     }
     {
         // 《象》曰：潛龍勿用，陽在下也。
@@ -157,77 +157,77 @@ for (; lines.Count > 0;)
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FirstLine.Xiang = line[starting.Length..];
+        hexagram.FirstYao.Xiang = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = (hexagram.Painting[1].IsYang ? "九" : "六") + "二：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.SecondLine.LineText = line[starting.Length..];
+        hexagram.SecondYao.YaoText = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.SecondLine.Xiang = line[starting.Length..];
+        hexagram.SecondYao.Xiang = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = (hexagram.Painting[2].IsYang ? "九" : "六") + "三：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.ThirdLine.LineText = line[starting.Length..];
+        hexagram.ThirdYao.YaoText = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.ThirdLine.Xiang = line[starting.Length..];
+        hexagram.ThirdYao.Xiang = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = (hexagram.Painting[3].IsYang ? "九" : "六") + "四：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FourthLine.LineText = line[starting.Length..];
+        hexagram.FourthYao.YaoText = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FourthLine.Xiang = line[starting.Length..];
+        hexagram.FourthYao.Xiang = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = (hexagram.Painting[4].IsYang ? "九" : "六") + "五：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FifthLine.LineText = line[starting.Length..];
+        hexagram.FifthYao.YaoText = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.FifthLine.Xiang = line[starting.Length..];
+        hexagram.FifthYao.Xiang = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "上" + (hexagram.Painting[5].IsYang ? "九" : "六") + "：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.SixthLine.LineText = line[starting.Length..];
+        hexagram.SixthYao.YaoText = line[starting.Length..];
     }
     {
         var line = lines.Dequeue();
         var starting = "《象》曰：";
         if (!line.StartsWith(starting))
             throw new Exception();
-        hexagram.SixthLine.Xiang = line[starting.Length..];
+        hexagram.SixthYao.Xiang = line[starting.Length..];
     }
     store.UpdateStore(hexagram);
 }
@@ -237,13 +237,13 @@ var sLength = "取自 https://github.com/bollwarm/ZHOUYI.git".Length;
 
 #region qiankun
 ZhouyiHexagram qian6 = store.GetHexagramByName("乾")!;
-qian6.Yong.LineText = "見群龍無首，吉。";
+qian6.Yong.YaoText = "見群龍無首，吉。";
 qian6.Yong.Xiang = "用九，天德不可為首也。";
 qian6.Wenyan = File.ReadAllText("wenyanQian.txt")[sLength..];
 store.UpdateStore(qian6);
 
 ZhouyiHexagram kun6 = store.GetHexagramByName("坤")!;
-kun6.Yong.LineText = "利永貞。";
+kun6.Yong.YaoText = "利永貞。";
 kun6.Yong.Xiang = "用六永貞，以大終也。";
 kun6.Wenyan = File.ReadAllText("wenyanKun.txt")[sLength..];
 store.UpdateStore(kun6);

@@ -2,8 +2,8 @@
 
 /// <summary>
 /// 《杂卦》。
-/// Zagua.
 /// 此类型的实例不可比较。
+/// Zagua.
 /// Instance of this type cannot be compared.
 /// </summary>
 public sealed record Zagua
