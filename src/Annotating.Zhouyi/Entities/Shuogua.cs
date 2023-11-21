@@ -6,7 +6,7 @@
 /// Shuogua.
 /// Instance of this type cannot be compared.
 /// </summary>
-public sealed record Shuogua
+public sealed class Shuogua
 {
     /// <summary>
     /// 内容。

@@ -6,7 +6,7 @@
 /// Xugua.
 /// Instance of this type cannot be compared.
 /// </summary>
-public sealed record Xugua
+public sealed class Xugua
 {
     /// <summary>
     /// 内容。

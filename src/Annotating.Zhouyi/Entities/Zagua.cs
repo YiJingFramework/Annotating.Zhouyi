@@ -6,7 +6,7 @@
 /// Zagua.
 /// Instance of this type cannot be compared.
 /// </summary>
-public sealed record Zagua
+public sealed class Zagua
 {
     /// <summary>
     /// 内容。

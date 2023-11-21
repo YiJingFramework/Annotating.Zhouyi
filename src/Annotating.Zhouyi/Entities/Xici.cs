@@ -6,7 +6,7 @@
 /// Xici.
 /// Instance of this type cannot be compared.
 /// </summary>
-public sealed record Xici
+public sealed class Xici
 {
     /// <summary>
     /// 上。
