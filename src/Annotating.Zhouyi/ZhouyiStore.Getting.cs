@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 using YiJingFramework.Annotating.Zhouyi.Entities;
 using YiJingFramework.Annotating.Zhouyi.InternalEntities;
 using YiJingFramework.PrimitiveTypes;
@@ -93,7 +90,8 @@ public sealed partial class ZhouyiStore
         ArgumentNullException.ThrowIfNull(painting);
 
         var paintingString = painting.ToString();
-        return new ZhouyiTrigram(painting) {
+        return new ZhouyiTrigram(painting)
+        {
             Name = FindContent(this.Groups.TrigramNameGroup, paintingString),
             Nature = FindContent(this.Groups.TrigramNatureGroup, paintingString)
         };
@@ -131,7 +129,8 @@ public sealed partial class ZhouyiStore
             return null;
         }
 
-        return new ZhouyiTrigram(gua) {
+        return new ZhouyiTrigram(gua)
+        {
             Name = entry.Content,
             Nature = FindContent(this.Groups.TrigramNatureGroup, gua.ToString())
         };
@@ -168,7 +167,8 @@ public sealed partial class ZhouyiStore
         {
             return null;
         }
-        return new ZhouyiTrigram(gua) {
+        return new ZhouyiTrigram(gua)
+        {
             Name = FindContent(this.Groups.TrigramNameGroup, gua.ToString()),
             Nature = entry.Content
         };
@@ -242,7 +242,8 @@ public sealed partial class ZhouyiStore
         ArgumentNullException.ThrowIfNull(painting);
 
         var paintingString = painting.ToString();
-        var result = new ZhouyiHexagram(painting) {
+        var result = new ZhouyiHexagram(painting)
+        {
             Name = FindContent(this.Groups.HexagramNameGroup, paintingString),
             Index = FindContent(this.Groups.HexagramIndexGroup, paintingString)
         };
@@ -281,7 +282,8 @@ public sealed partial class ZhouyiStore
         {
             return null;
         }
-        var result = new ZhouyiHexagram(gua) {
+        var result = new ZhouyiHexagram(gua)
+        {
             Name = entry.Content,
             Index = FindContent(this.Groups.HexagramIndexGroup, gua.ToString())
         };
@@ -320,7 +322,8 @@ public sealed partial class ZhouyiStore
         {
             return null;
         }
-        var result = new ZhouyiHexagram(gua) {
+        var result = new ZhouyiHexagram(gua)
+        {
             Name = FindContent(this.Groups.HexagramNameGroup, gua.ToString()),
             Index = entry.Content
         };
@@ -345,7 +348,8 @@ public sealed partial class ZhouyiStore
     public Xici GetXici()
     {
         var group = this.Groups.TheRestOfYizhuanGroup;
-        return new Xici() {
+        return new Xici()
+        {
             PartA = FindContent(group, ZhouyiGroups.TARGET_XICI_A),
             PartB = FindContent(group, ZhouyiGroups.TARGET_XICI_B)
         };
@@ -365,7 +369,8 @@ public sealed partial class ZhouyiStore
     /// </returns>
     public Shuogua GetShuogua()
     {
-        return new Shuogua() {
+        return new Shuogua()
+        {
             Content = FindContent(this.Groups.TheRestOfYizhuanGroup, ZhouyiGroups.TARGET_SHUOGUA)
         };
     }
@@ -384,7 +389,8 @@ public sealed partial class ZhouyiStore
     /// </returns>
     public Xugua GetXugua()
     {
-        return new Xugua() {
+        return new Xugua()
+        {
             Content = FindContent(this.Groups.TheRestOfYizhuanGroup, ZhouyiGroups.TARGET_XUGUA)
         };
     }
@@ -403,7 +409,8 @@ public sealed partial class ZhouyiStore
     /// </returns>
     public Zagua GetZagua()
     {
-        return new Zagua() {
+        return new Zagua()
+        {
             Content = FindContent(this.Groups.TheRestOfYizhuanGroup, ZhouyiGroups.TARGET_ZAGUA)
         };
     }

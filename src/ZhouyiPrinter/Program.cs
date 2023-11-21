@@ -32,7 +32,8 @@ for (int i = 0; i < 64; i++)
     static string LineTitle(int line, Yinyang yinYang)
     {
         var yinYangString = yinYang.IsYang ? "九" : "六";
-        return line switch {
+        return line switch
+        {
             1 => $"初{yinYangString}",
             2 => $"{yinYangString}二",
             3 => $"{yinYangString}三",

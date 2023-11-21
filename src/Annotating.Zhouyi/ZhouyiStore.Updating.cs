@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using YiJingFramework.Annotating.Zhouyi.Entities;
 using YiJingFramework.Annotating.Zhouyi.InternalEntities;
-using YiJingFramework.PrimitiveTypes;
 using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
 namespace YiJingFramework.Annotating.Zhouyi;

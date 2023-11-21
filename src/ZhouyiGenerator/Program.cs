@@ -5,41 +5,50 @@ using YiJingFramework.Annotating.Zhouyi.Entities;
 using YiJingFramework.PrimitiveTypes;
 using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
-ZhouyiStore store = new ZhouyiStore(null) {
+ZhouyiStore store = new ZhouyiStore(null)
+{
     Title = "Zhouyi"
 };
 store.Tags.Add("origin: https://github.com/bollwarm/ZHOUYI.git");
 
 #region trigrams
-var qian = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yang, Yinyang.Yang, Yinyang.Yang)) {
+var qian = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yang, Yinyang.Yang, Yinyang.Yang))
+{
     Name = "乾",
     Nature = "天"
 };
-var dui = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yang, Yinyang.Yang, Yinyang.Yin)) {
+var dui = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yang, Yinyang.Yang, Yinyang.Yin))
+{
     Name = "兌",
     Nature = "澤"
 };
-var li = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yang, Yinyang.Yin, Yinyang.Yang)) {
+var li = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yang, Yinyang.Yin, Yinyang.Yang))
+{
     Name = "離",
     Nature = "火"
 };
-var zhen = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yang, Yinyang.Yin, Yinyang.Yin)) {
+var zhen = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yang, Yinyang.Yin, Yinyang.Yin))
+{
     Name = "震",
     Nature = "雷"
 };
-var xun = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yin, Yinyang.Yang, Yinyang.Yang)) {
+var xun = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yin, Yinyang.Yang, Yinyang.Yang))
+{
     Name = "巽",
     Nature = "風"
 };
-var kan = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yin, Yinyang.Yang, Yinyang.Yin)) {
+var kan = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yin, Yinyang.Yang, Yinyang.Yin))
+{
     Name = "坎",
     Nature = "水"
 };
-var gen = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yin, Yinyang.Yin, Yinyang.Yang)) {
+var gen = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yin, Yinyang.Yin, Yinyang.Yang))
+{
     Name = "艮",
     Nature = "山"
 };
-var kun = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yin, Yinyang.Yin, Yinyang.Yin)) {
+var kun = new ZhouyiTrigram(new GuaTrigram(Yinyang.Yin, Yinyang.Yin, Yinyang.Yin))
+{
     Name = "坤",
     Nature = "地"
 };
@@ -80,7 +89,8 @@ for (; lines.Count > 0;)
         {
             upper = store.GetTrigramByName(s[1][4].ToString())!;
             lower = store.GetTrigramByName(s[1][6].ToString())!;
-            hexagram = new ZhouyiHexagram(new GuaHexagram(lower.Painting.Concat(upper.Painting))) {
+            hexagram = new ZhouyiHexagram(new GuaHexagram(lower.Painting.Concat(upper.Painting)))
+            {
                 Name = s[1][0].ToString()
             };
         }
@@ -90,7 +100,8 @@ for (; lines.Count > 0;)
                 throw new Exception();
             upper = store.GetTrigramByName(s[1][6].ToString())!;
             lower = store.GetTrigramByName(s[1][8].ToString())!;
-            hexagram = new ZhouyiHexagram(new GuaHexagram(lower.Painting.Concat(upper.Painting))) {
+            hexagram = new ZhouyiHexagram(new GuaHexagram(lower.Painting.Concat(upper.Painting)))
+            {
                 Name = s[1][0..2]
             };
         }
@@ -250,23 +261,28 @@ store.UpdateStore(kun6);
 #endregion
 
 #region others
-store.UpdateStore(new Shuogua() {
+store.UpdateStore(new Shuogua()
+{
     Content = File.ReadAllText("shuogua.txt")[sLength..]
 });
-store.UpdateStore(new Xugua() {
+store.UpdateStore(new Xugua()
+{
     Content = File.ReadAllText("xugua.txt")[sLength..]
 });
-store.UpdateStore(new Zagua() {
+store.UpdateStore(new Zagua()
+{
     Content = File.ReadAllText("zagua.txt")[sLength..]
 });
-store.UpdateStore(new Xici() {
+store.UpdateStore(new Xici()
+{
     PartA = File.ReadAllText("xiciA.txt")[sLength..],
     PartB = File.ReadAllText("xiciB.txt")[sLength..]
 });
 #endregion
 
 File.WriteAllText("out.json", store.SerializeToJsonString());
-File.WriteAllText("out2.json", store.SerializeToJsonString(new JsonSerializerOptions() {
+File.WriteAllText("out2.json", store.SerializeToJsonString(new JsonSerializerOptions()
+{
     Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     WriteIndented = true
 }));

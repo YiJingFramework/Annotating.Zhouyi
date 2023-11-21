@@ -1,5 +1,4 @@
-﻿using YiJingFramework.PrimitiveTypes;
-using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
+﻿using YiJingFramework.PrimitiveTypes.GuaWithFixedCount;
 
 namespace YiJingFramework.Annotating.Zhouyi.Entities;
 

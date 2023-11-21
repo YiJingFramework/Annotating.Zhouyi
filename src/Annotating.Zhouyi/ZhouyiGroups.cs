@@ -1,6 +1,4 @@
-﻿using YiJingFramework.PrimitiveTypes;
-
-namespace YiJingFramework.Annotating.Zhouyi;
+﻿namespace YiJingFramework.Annotating.Zhouyi;
 
 /// <summary>
 /// <seealso cref="ZhouyiStore"/> 的注解组。
